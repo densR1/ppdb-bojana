@@ -1,4 +1,5 @@
 import {
+  IconBrandFacebook,
   IconBrandInstagram,
   IconBrandTiktok,
   IconBrandYoutube,
@@ -8,6 +9,29 @@ import {
 import { Link } from "react-router-dom";
 
 const SCHOOL_URL = "https://bojanaislamicprimary.sch.id";
+
+const SOCIALS = [
+  {
+    icon: IconBrandInstagram,
+    label: "Instagram",
+    url: "https://www.instagram.com/bojanatirtaislamicschool",
+  },
+  {
+    icon: IconBrandFacebook,
+    label: "Facebook",
+    url: "https://www.facebook.com/sdislambojanatirta",
+  },
+  {
+    icon: IconBrandYoutube,
+    label: "YouTube",
+    url: "https://www.youtube.com/@BojanaTirtaIslamicSchool",
+  },
+  {
+    icon: IconBrandTiktok,
+    label: "TikTok",
+    url: "https://www.tiktok.com/@bojanatirtaislamicschool",
+  },
+];
 
 function Footer() {
   return (
@@ -80,19 +104,19 @@ function Footer() {
 
 
           <div className="mt-4 flex gap-3">
-            {[IconBrandInstagram, IconBrandTiktok, IconBrandYoutube].map(
-              (Icon, index) => (
-                <a
-                  key={index}
-                  href={SCHOOL_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-lg bg-white/10 p-2 text-white no-underline transition hover:bg-primary"
-                >
-                  <Icon size={18} />
-                </a>
-              )
-            )}
+            {SOCIALS.map(({ icon: Icon, label, url }) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                title={label}
+                className="rounded-lg bg-white/10 p-2 text-white no-underline transition hover:bg-primary"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
       </div>
