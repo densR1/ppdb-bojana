@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/font/Poppins/Poppins-Regular.ttf");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/font/Poppins/Poppins-Medium.ttf");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/font/Poppins/Poppins-SemiBold.ttf");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/font/Poppins/Poppins-Bold.ttf");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 font-sans text-slate-700 antialiased;
+  }
+}
+
+@layer components {
+  .container-app {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  /* Stays large on phones, shrinks sensibly on desktop. */
+  .btn {
+    @apply inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5
+      text-base font-semibold transition disabled:cursor-not-allowed
+      disabled:opacity-50 sm:w-auto;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white shadow-sm hover:bg-primary-dark;
+  }
+
+  .btn-secondary {
+    @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50;
+  }
+
+  .btn-blue {
+    @apply btn bg-secondary text-white shadow-sm hover:bg-secondary-dark;
+  }
+
+  .btn-block {
+    @apply w-full sm:w-full;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-slate-300 px-4 py-3 text-base
+      outline-none transition focus:border-secondary
+      focus:ring-2 focus:ring-secondary/20;
+  }
+
+  .input-label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .section-title {
+    @apply text-center text-2xl font-bold text-navy sm:text-3xl;
+  }
+
+  .section-subtitle {
+    @apply mx-auto mt-2 max-w-2xl text-center text-sm text-slate-500 sm:text-base;
+  }
+}
