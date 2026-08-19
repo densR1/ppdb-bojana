@@ -238,6 +238,7 @@ function Enrollment() {
             status={document.status}
             rejectReason={document.reject_reason}
             currentName={document.original_name}
+            immediate
             onSend={sendDocument(document.type)}
           />
         ))}

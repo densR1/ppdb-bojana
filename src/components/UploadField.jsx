@@ -15,8 +15,10 @@ const MAX_BYTES = 5 * 1024 * 1024;
 const readableSize = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
 /**
- * One upload slot, always two steps: pick a file, look at it, then send. The
- * caller owns the request — this only decides what the parent sees.
+ * One upload slot. With `immediate` the file is sent as soon as it is picked;
+ * otherwise the parent gets a look at it and presses Send. Five slots on one
+ * page are tedious to confirm one by one, but a payment receipt is worth the
+ * second look. The caller owns the request.
  */
 function UploadField({
   label,
@@ -25,6 +27,7 @@ function UploadField({
   rejectReason,
   currentName,
   onSend,
+  immediate = false,
   disabled = false,
 }) {
   const fileInput = useRef(null);
@@ -48,7 +51,7 @@ function UploadField({
 
   const openPicker = () => fileInput.current?.click();
 
-  const pickFile = (event) => {
+  const pickFile = async (event) => {
     const picked = event.target.files?.[0];
     if (fileInput.current) fileInput.current.value = "";
     if (!picked) return;
@@ -64,17 +67,21 @@ function UploadField({
     }
 
     setError("");
+
+    if (immediate) {
+      await deliver(picked);
+      return;
+    }
+
     setFile(picked);
   };
 
-  const send = async () => {
-    if (!file) return;
-
+  const deliver = async (target) => {
     setSending(true);
     setError("");
 
     try {
-      await onSend(file);
+      await onSend(target);
       setFile(null);
     } catch (err) {
       setError(errorMessage(err, "Failed to send this file"));
@@ -159,7 +166,7 @@ function UploadField({
             <button
               type="button"
               className="btn-primary flex-1 !py-2.5 !text-sm"
-              onClick={send}
+              onClick={() => deliver(file)}
               disabled={sending}
             >
               <IconSend size={18} />
@@ -180,10 +187,14 @@ function UploadField({
           type="button"
           className="btn-secondary btn-block mt-3 !py-2.5 !text-sm"
           onClick={openPicker}
-          disabled={disabled}
+          disabled={disabled || sending}
         >
           <IconUpload size={18} />
-          {currentName ? "Upload Again" : "Choose File"}
+          {sending
+            ? "Uploading..."
+            : currentName
+            ? "Upload Again"
+            : "Choose File"}
         </button>
       )}
     </div>
