@@ -147,6 +147,16 @@ function Enrollment() {
     );
   }
 
+  // Berkas wajib yang belum terkirim, atau sudah dikembalikan sekolah.
+  // Server memeriksa ulang saat submit; ini supaya tombolnya tidak
+  // menjanjikan sesuatu yang pasti ditolak.
+  const outstanding = documents
+    .filter(
+      (item) =>
+        item.required && item.status !== "approved" && item.status !== "pending"
+    )
+    .map((item) => item.label);
+
   return (
     <Shell
       title="Re-registration"
@@ -235,10 +245,16 @@ function Enrollment() {
 
       {error && <Alert type="error">{error}</Alert>}
 
+      {outstanding.length > 0 && (
+        <Alert type="warning" title="Still needed before you can submit">
+          {outstanding.join(", ")}
+        </Alert>
+      )}
+
       <button
         className="btn-primary btn-block"
         onClick={submit}
-        disabled={submitting}
+        disabled={submitting || outstanding.length > 0}
       >
         <IconCheck size={20} />
         {submitting ? "Submitting..." : "Submit for Review"}
