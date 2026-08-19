@@ -88,7 +88,9 @@ function UploadField({
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="m-0 text-sm font-semibold text-navy">{label}</p>
-          {note && <p className="m-0 text-xs text-slate-500">{note}</p>}
+          <p className="m-0 text-xs text-slate-500">
+            {note ? `${note} · ` : ""}JPG, PNG, WebP, or PDF · max 5 MB
+          </p>
         </div>
         {status && <UploadStatus status={status} />}
       </div>

@@ -64,7 +64,6 @@ function ReceiptUpload({ receipts, canUpload, onUploaded }) {
         <div className="mt-4">
           <UploadField
             label="Upload your transfer receipt"
-            note="Photo or PDF, up to 5 MB"
             onSend={send}
           />
         </div>
