@@ -27,9 +27,12 @@ The API address comes from `VITE_API_ENDPOINT` at build time.
 Production: **https://ppdb.bojanaislamicprimary.sch.id**
 
 ```bash
-npm ci
-npm run build      # writes dist/
+./deploy.sh
 ```
+
+That builds, refuses to continue if the production API URL did not make it
+into the bundle, uploads `dist/` to the server, and then checks that the live
+site is actually serving the bundle it just built.
 
 Serve `dist/` as a static site. It is a single-page app, so every unknown path
 must fall back to `index.html` — otherwise reloading `/check-status` returns 404.
