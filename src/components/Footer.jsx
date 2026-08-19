@@ -4,6 +4,7 @@ import {
   IconBrandTiktok,
   IconBrandYoutube,
   IconMail,
+  IconMapPin,
   IconPhone,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
@@ -94,11 +95,12 @@ function Footer() {
           <ul className="m-0 list-none space-y-3 p-0 text-sm text-white/85">
             <li className="flex gap-2">
               <IconMail size={18} className="mt-0.5 shrink-0" />
-              <span>info@bojana.com</span>
+              <span>btisprimary@gmail.com</span>
             </li>
             <li className="flex gap-2">
               <IconPhone size={18} className="mt-0.5 shrink-0" />
-              <span>+62 811 111 111</span>
+              <span>+62-811-375-566
+            </span>
             </li>
           </ul>
 
@@ -122,6 +124,10 @@ function Footer() {
       </div>
 
       <div className="container-app pb-12">
+        <p className="mb-3 flex items-center gap-2 font-semibold">
+          <IconMapPin size={18} className="shrink-0" />
+          Our Location
+        </p>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.442101607488!2d106.87408011074042!3d-6.2052669937566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f51eca29e14b%3A0x4c636ed319acafc0!2sBojana%20Tirta%20Islamic%20School!5e0!3m2!1sid!2sid!4v1786597029204!5m2!1sid!2sid"
           title="Bojana Tirta Islamic School — Jl. Bujana Tirta Raya No.3A, Pisangan Timur, Kec. Pulo Gadung, Jakarta Timur 13230"
