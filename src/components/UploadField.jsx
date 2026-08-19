@@ -23,8 +23,6 @@ const readableSize = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 function UploadField({
   label,
   note,
-  status,
-  rejectReason,
   currentName,
   onSend,
   immediate = false,
@@ -99,18 +97,13 @@ function UploadField({
             {note ? `${note} · ` : ""}JPG, PNG, WebP, or PDF · max 5 MB
           </p>
         </div>
-        {status && <UploadStatus status={status} />}
       </div>
 
       {currentName && !file && (
-        <p className="m-0 mt-2 flex items-center gap-1.5 truncate text-xs text-slate-500">
-          <IconFileText size={14} className="shrink-0" />
+        <p className="m-0 mt-2 flex items-center gap-1.5 truncate text-xs text-emerald-700">
+          <IconCheck size={14} className="shrink-0" />
           {currentName}
         </p>
-      )}
-
-      {status === "rejected" && rejectReason && (
-        <p className="m-0 mt-2 text-xs italic text-red-600">{rejectReason}</p>
       )}
 
       {error && (
@@ -198,31 +191,6 @@ function UploadField({
         </button>
       )}
     </div>
-  );
-}
-
-const STATUS_STYLE = {
-  pending: "bg-amber-100 text-amber-800",
-  approved: "bg-emerald-100 text-emerald-800",
-  rejected: "bg-red-100 text-red-800",
-};
-
-const STATUS_LABEL = {
-  pending: "Waiting for review",
-  approved: "Approved",
-  rejected: "Rejected",
-};
-
-function UploadStatus({ status }) {
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
-        STATUS_STYLE[status] ?? "bg-slate-100 text-slate-700"
-      }`}
-    >
-      {status === "approved" && <IconCheck size={13} />}
-      {STATUS_LABEL[status] ?? status}
-    </span>
   );
 }
 

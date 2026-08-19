@@ -151,10 +151,7 @@ function Enrollment() {
   // Server memeriksa ulang saat submit; ini supaya tombolnya tidak
   // menjanjikan sesuatu yang pasti ditolak.
   const outstanding = documents
-    .filter(
-      (item) =>
-        item.required && item.status !== "approved" && item.status !== "pending"
-    )
+    .filter((item) => item.required && !item.original_name)
     .map((item) => item.label);
 
   return (
