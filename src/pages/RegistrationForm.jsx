@@ -423,7 +423,10 @@ function RegistrationForm() {
               />
             </Field>
 
-            <Field label="Kindergarten / Previous School">
+            <Field
+              label="Kindergarten / Previous School"
+              hint="Write - if your child did not attend one"
+            >
               <input
                 className="input"
                 value={values.previous_school}
@@ -579,11 +582,6 @@ function RegistrationForm() {
                 required
               />
             </Field>
-
-            <Alert type="info" title="What happens next">
-              You will be taken to the payment page to upload your psychotest fee
-              transfer receipt.
-            </Alert>
           </div>
         )}
 
