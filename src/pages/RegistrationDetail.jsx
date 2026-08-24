@@ -34,7 +34,8 @@ const NEXT_STEP = {
   },
   passed: {
     title: "Your child passed",
-    body: "Please continue with the school fee payment.",
+    body: "Complete your child's details and upload the documents. The school fee is billed once you submit them.",
+    action: { to: "/status/enrollment", label: "Open Re-registration" },
   },
   not_passed: {
     title: "Your child was not accepted",
