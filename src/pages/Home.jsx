@@ -2,10 +2,8 @@ import Alert from "@/components/Alert";
 import HomeCta from "@/components/HomeCta";
 import HomeHero from "@/components/HomeHero";
 import Shell from "@/components/Shell";
-import { rupiah } from "@/utils/format";
 import { errorMessage, request } from "@/utils/request";
 import {
-  IconCash,
   IconClipboardCheck,
   IconClipboardList,
   IconFileText,
@@ -106,77 +104,26 @@ function Home() {
           </div>
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-2">
-          <div className="card">
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
-                <IconFileText size={22} />
-              </span>
-              <h3 className="m-0 text-lg font-bold text-navy">
-                Required Documents
-              </h3>
-            </div>
-            <p className="m-0 mt-2 text-sm text-slate-500">
-              Uploaded after your child passes the psychotest.
-            </p>
+        <section>
+          <h2 className="section-title">Required Documents</h2>
+          <p className="section-subtitle">
+            Prepared once your child passes the psychotest — no need to bring
+            anything on the first day
+          </p>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {DOCUMENTS.map((doc) => (
-                <div
-                  key={doc.title}
-                  className="flex items-start gap-3 rounded-xl bg-slate-50 p-3"
-                >
-                  <doc.icon size={20} className="mt-0.5 shrink-0 text-primary" />
-                  <div className="min-w-0">
-                    <p className="m-0 text-sm font-semibold text-navy">
-                      {doc.title}
-                    </p>
-                    <p className="m-0 text-xs text-slate-500">{doc.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <IconCash size={22} />
-              </span>
-              <h3 className="m-0 text-lg font-bold text-navy">School Fees</h3>
-            </div>
-            <p className="m-0 mt-2 text-sm text-slate-500">
-              Paid in stages. Bank details appear on your invoice page.
-            </p>
-
-            <div className="mt-5 space-y-3">
-              {period?.requires_psychotest && (
-                <div className="flex items-center justify-between rounded-xl bg-slate-50 p-4">
-                  <span className="text-sm font-medium text-slate-600">
-                    Psychotest Fee
-                  </span>
-                  <span className="font-bold text-secondary">
-                    {rupiah(period.psychotest_fee)}
-                  </span>
-                </div>
-              )}
-              <div className="flex items-center justify-between rounded-xl bg-slate-50 p-4">
-                <span className="text-sm font-medium text-slate-600">
-                  Registration Fee
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {DOCUMENTS.map((doc) => (
+              <div
+                key={doc.title}
+                className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-primary hover:shadow-lg"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
+                  <doc.icon size={24} />
                 </span>
-                <span className="font-bold text-secondary">
-                  {rupiah(period?.registration_fee)}
-                </span>
+                <p className="m-0 mt-4 font-semibold text-navy">{doc.title}</p>
+                <p className="m-0 mt-1 text-sm text-slate-500">{doc.desc}</p>
               </div>
-              <div className="flex items-center justify-between rounded-xl bg-slate-50 p-4">
-                <span className="text-sm font-medium text-slate-600">
-                  Monthly Tuition
-                </span>
-                <span className="text-sm font-semibold text-slate-400">
-                  Contact the school
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
