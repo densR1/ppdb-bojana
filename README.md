@@ -1,4 +1,4 @@
-# PPDB Bojana Tirta — Parent App
+# Admission Bojana Tirta — Parent App
 
 Admission app for **parents**, deployed on its own subdomain, separate from
 e-raport.
