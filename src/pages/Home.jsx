@@ -107,8 +107,7 @@ function Home() {
         <section>
           <h2 className="section-title">Required Documents</h2>
           <p className="section-subtitle">
-            Prepared once your child passes the psychotest — no need to bring
-            anything on the first day
+            Prepared once your child passes the psychotest
           </p>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
