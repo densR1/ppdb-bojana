@@ -11,12 +11,12 @@ import { Link, Navigate } from "react-router-dom";
 // What the parent should do next, per state. Keys must match
 // App\Enums\RegistrationState — a stale key silently hides this card.
 const NEXT_STEP = {
-  awaiting_psychotest_payment: {
+  awaiting_registration_payment: {
     title: "Pay the registration fee",
     body: "Open the invoice page, transfer the exact amount, then upload your receipt.",
     action: { to: "/status/invoice", label: "View Invoice" },
   },
-  psychotest_paid: {
+  registration_paid: {
     title: "Waiting for your psychotest schedule",
     body: "We have received your payment. The schedule will be sent to your email.",
   },
@@ -40,7 +40,7 @@ const NEXT_STEP = {
     title: "Your child was not accepted",
     body: "Thank you for trusting Bojana Tirta Islamic School.",
   },
-  awaiting_registration_payment: {
+  awaiting_school_fee_payment: {
     title: "Pay the school fee",
     body: "Open the invoice page, transfer the exact amount, then upload your receipt.",
     action: { to: "/status/invoice", label: "View Invoice" },
