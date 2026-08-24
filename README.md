@@ -24,7 +24,7 @@ The API address comes from `VITE_API_ENDPOINT` at build time.
 
 ## Deploy
 
-Production: **https://ppdb.bojanaislamicprimary.sch.id**
+Production: **https://admission.bojanaislamicprimary.sch.id**
 
 ```bash
 ./deploy.sh

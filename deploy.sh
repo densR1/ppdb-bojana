@@ -9,7 +9,7 @@ set -euo pipefail
 
 SERVER="ubuntu@43.133.136.92"
 TARGET="/var/www/eraport/ppdb-bojana/dist/"
-SITE="https://ppdb.bojanaislamicprimary.sch.id"
+SITE="https://admission.bojanaislamicprimary.sch.id"
 
 cd "$(dirname "$0")"
 

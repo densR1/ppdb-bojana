@@ -46,7 +46,7 @@ function Footer() {
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/85">
             Nurturing a Qurani generation with noble character, strong academics,
-            and independence through holistic education.
+            and independence through holistic e ducation.
           </p>
         </div>
 
