@@ -12,7 +12,7 @@ import { Link, Navigate } from "react-router-dom";
 // App\Enums\RegistrationState — a stale key silently hides this card.
 const NEXT_STEP = {
   awaiting_psychotest_payment: {
-    title: "Pay the psychotest fee",
+    title: "Pay the registration fee",
     body: "Open the invoice page, transfer the exact amount, then upload your receipt.",
     action: { to: "/status/invoice", label: "View Invoice" },
   },
@@ -34,14 +34,14 @@ const NEXT_STEP = {
   },
   passed: {
     title: "Your child passed",
-    body: "Please continue with the registration fee payment.",
+    body: "Please continue with the school fee payment.",
   },
   not_passed: {
     title: "Your child was not accepted",
     body: "Thank you for trusting Bojana Tirta Islamic School.",
   },
   awaiting_registration_payment: {
-    title: "Pay the registration fee",
+    title: "Pay the school fee",
     body: "Open the invoice page, transfer the exact amount, then upload your receipt.",
     action: { to: "/status/invoice", label: "View Invoice" },
   },
