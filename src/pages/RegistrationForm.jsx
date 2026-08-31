@@ -504,9 +504,15 @@ function RegistrationForm() {
 
         {step === 3 && (
           <div className="card space-y-4">
-            <h2 className="m-0 text-base font-bold text-navy">Siblings</h2>
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="m-0 text-base font-bold text-navy">Siblings</h2>
+              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">
+                Optional
+              </span>
+            </div>
             <p className="m-0 text-sm text-slate-500">
-              List them in order, including your child. Leave blank if none.
+              List them in order, including your child. If your child has no
+              siblings, leave this page blank and press Next.
             </p>
 
             {values.siblings.map((item, index) => (

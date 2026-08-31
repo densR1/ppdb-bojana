@@ -72,7 +72,7 @@ function Home() {
         )}
 
         <section>
-          <h2 className="section-title">Simple Admission Process</h2>
+          <h2 className="section  -title">Simple Admission Process</h2>
           <p className="section-subtitle">
             Four steps from applying to becoming part of the BTIS family
           </p>
