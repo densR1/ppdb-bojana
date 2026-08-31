@@ -89,7 +89,7 @@ function Invoice() {
   const receipts = invoice.payment_proof ?? [];
 
   // School Fee dirinci lewat surat dari sekolah, bukan angka di layar.
-  const byLetter = invoice.type === "school_fee" && invoice.has_fee_letter;
+  const byLetter = invoice.type === "school_fee";
   const components = invoice.components ?? [];
 
   return (
@@ -136,19 +136,29 @@ function Invoice() {
         {byLetter ? (
           <>
             <p className="m-0 text-sm text-slate-500">School fee details</p>
-            <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
-              The full breakdown is in the letter the school sent you. Open it
-              for the amount and the account to transfer to.
-            </p>
 
-            <button
-              className="btn-primary btn-block mt-4"
-              onClick={openLetter}
-              disabled={openingLetter}
-            >
-              <IconFileText size={20} />
-              {openingLetter ? "Opening..." : "Open the Letter"}
-            </button>
+            {invoice.has_fee_letter ? (
+              <>
+                <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
+                  The full breakdown is in the letter the school sent you. Open
+                  it for the amount and the account to transfer to.
+                </p>
+
+                <button
+                  className="btn-primary btn-block mt-4"
+                  onClick={openLetter}
+                  disabled={openingLetter}
+                >
+                  <IconFileText size={20} />
+                  {openingLetter ? "Opening..." : "Open the Letter"}
+                </button>
+              </>
+            ) : (
+              <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
+                The school is still preparing your fee letter. It will appear
+                here, and will also be sent to your email.
+              </p>
+            )}
           </>
         ) : (
           <>
@@ -167,7 +177,7 @@ function Invoice() {
           </>
         )}
 
-        {components.length > 0 && (
+        {!byLetter && components.length > 0 && (
           <div className="mt-4 border-t border-slate-100 pt-4">
             <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
               What this covers
