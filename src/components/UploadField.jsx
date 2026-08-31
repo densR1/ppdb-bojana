@@ -10,7 +10,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 const ACCEPTED = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
-const MAX_BYTES = 5 * 1024 * 1024;
+const MAX_MB = 2;
+const MAX_BYTES = MAX_MB * 1024 * 1024;
 
 const readableSize = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
@@ -60,7 +61,9 @@ function UploadField({
     }
 
     if (picked.size > MAX_BYTES) {
-      setError(`This file is ${readableSize(picked.size)}. The limit is 5 MB.`);
+      setError(
+          `This file is ${readableSize(picked.size)}. The limit is ${MAX_MB} MB.`,
+        );
       return;
     }
 
@@ -94,7 +97,7 @@ function UploadField({
         <div className="min-w-0">
           <p className="m-0 text-sm font-semibold text-navy">{label}</p>
           <p className="m-0 text-xs text-slate-500">
-            {note ? `${note} · ` : ""}JPG, PNG, WebP, or PDF · max 5 MB
+            {note ? `${note} · ` : ""}JPG, PNG, WebP, or PDF · max {MAX_MB} MB
           </p>
         </div>
       </div>
