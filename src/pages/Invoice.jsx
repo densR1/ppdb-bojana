@@ -88,9 +88,6 @@ function Invoice() {
   const unpaid = invoice.status === "unpaid";
   const receipts = invoice.payment_proof ?? [];
 
-  // School Fee dirinci lewat surat dari sekolah, bukan angka di layar.
-  const byLetter = invoice.type === "school_fee";
-
   return (
     <Shell title="Invoice" subtitle={invoice.type_label} backTo={backTo}>
       {invoice.status === "paid" ? (
@@ -132,48 +129,29 @@ function Invoice() {
       ) : null}
 
       <div className="card">
-        {byLetter ? (
-          <>
-            <p className="m-0 text-sm text-slate-500">School fee details</p>
+        <p className="m-0 text-sm text-slate-500">Payment details</p>
 
-            {invoice.has_fee_letter ? (
-              <>
-                <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
-                  The full breakdown is in the letter the school sent you. Open
-                  it for the amount and the account to transfer to.
-                </p>
-
-                <button
-                  className="btn-primary btn-block mt-4"
-                  onClick={openLetter}
-                  disabled={openingLetter}
-                >
-                  <IconFileText size={20} />
-                  {openingLetter ? "Opening..." : "Open the Letter"}
-                </button>
-              </>
-            ) : (
-              <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
-                The school is still preparing your fee letter. It will appear
-                here, and will also be sent to your email.
-              </p>
-            )}
-          </>
-        ) : (
+        {invoice.has_fee_letter ? (
           <>
-            <p className="m-0 text-sm text-slate-500">Amount to transfer</p>
-            <p className="m-0 mt-1 text-3xl font-bold tabular-nums text-navy">
-              {rupiah(invoice.amount_invoiced)}
+            <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
+              The full breakdown is in the letter the school sent you. Open it
+              for the amount and the account to transfer to.
             </p>
 
             <button
-              onClick={() => copy(invoice.amount_invoiced, "amount")}
-              className="mt-2 flex items-center gap-1.5 text-sm font-medium text-secondary"
+              className="btn-primary btn-block mt-4"
+              onClick={openLetter}
+              disabled={openingLetter}
             >
-              <IconCopy size={16} />
-              {copied === "amount" ? "Amount copied" : "Copy amount"}
+              <IconFileText size={20} />
+              {openingLetter ? "Opening..." : "Open the Letter"}
             </button>
           </>
+        ) : (
+          <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
+            The school is still preparing your fee letter. It will appear here,
+            and will also be sent to your email.
+          </p>
         )}
 
         <div className="mt-4 border-t border-slate-100 pt-4 text-sm">
