@@ -26,9 +26,7 @@ function Enrollment() {
   const [state, setState] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
 
@@ -57,34 +55,6 @@ function Enrollment() {
   const set = (key) => (event) =>
     setChild((prev) => ({ ...prev, [key]: event.target.value }));
 
-  const save = async (event) => {
-    event.preventDefault();
-    setSaving(true);
-    setSaved(false);
-    setError("");
-    setFieldErrors({});
-
-    try {
-      const response = await request({
-        url: "/v1/ppdb/registration/enrollment",
-        method: "post",
-        data: {
-          nik: child.nik,
-          gender: child.gender,
-          lives_with: child.lives_with,
-        },
-      });
-
-      setDocuments(response.data.data.documents);
-      setSaved(true);
-    } catch (err) {
-      setFieldErrors(err.response?.data?.data?.errors ?? {});
-      setError(errorMessage(err, "Failed to save"));
-    } finally {
-      setSaving(false);
-    }
-  };
-
   const sendDocument = (type) => async (file) => {
     const body = new FormData();
     body.append("type", type);
@@ -102,14 +72,28 @@ function Enrollment() {
   const submit = async () => {
     setSubmitting(true);
     setError("");
+    setFieldErrors({});
 
     try {
+      const details = await request({
+        url: "/v1/ppdb/registration/enrollment",
+        method: "post",
+        data: {
+          nik: child.nik,
+          gender: child.gender,
+          lives_with: child.lives_with,
+        },
+      });
+
+      setDocuments(details.data.data.documents);
+
       await request({
         url: "/v1/ppdb/registration/enrollment/submit",
         method: "post",
       });
       navigate("/status");
     } catch (err) {
+      setFieldErrors(err.response?.data?.data?.errors ?? {});
       setError(errorMessage(err, "Cannot submit yet"));
     } finally {
       setSubmitting(false);
@@ -160,7 +144,7 @@ function Enrollment() {
       subtitle={child?.full_name}
       backTo="/status"
     >
-      <form onSubmit={save} className="card space-y-4">
+      <div className="card space-y-4">
         <h2 className="m-0 text-base font-bold text-navy">
           Complete your child&apos;s details
         </h2>
@@ -212,12 +196,7 @@ function Enrollment() {
           </select>
         </Field>
 
-        {saved && <Alert type="success">Details saved.</Alert>}
-
-        <button className="btn-primary btn-block" disabled={saving}>
-          {saving ? "Saving..." : "Save Details"}
-        </button>
-      </form>
+      </div>
 
       <div className="card space-y-3">
         <div>
