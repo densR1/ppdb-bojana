@@ -219,7 +219,7 @@ function Invoice() {
       )}
 
       {receipts.length > 0 && (
-        <Link to="/status" className="block no-underline">
+        <Link to="/check-status" className="block no-underline">
           <button className="btn-primary btn-block">Check Status</button>
         </Link>
       )}
