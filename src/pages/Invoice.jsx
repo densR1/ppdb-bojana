@@ -90,7 +90,6 @@ function Invoice() {
 
   // School Fee dirinci lewat surat dari sekolah, bukan angka di layar.
   const byLetter = invoice.type === "school_fee";
-  const components = invoice.components ?? [];
 
   return (
     <Shell title="Invoice" subtitle={invoice.type_label} backTo={backTo}>
@@ -175,24 +174,6 @@ function Invoice() {
               {copied === "amount" ? "Amount copied" : "Copy amount"}
             </button>
           </>
-        )}
-
-        {!byLetter && components.length > 0 && (
-          <div className="mt-4 border-t border-slate-100 pt-4">
-            <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-              What this covers
-            </p>
-            <ul className="m-0 list-none space-y-1.5 p-0 text-sm">
-              {components.map((item) => (
-                <li key={item.label} className="flex justify-between gap-3">
-                  <span className="text-slate-600">{item.label}</span>
-                  <span className="shrink-0 font-medium tabular-nums text-navy">
-                    {rupiah(item.amount)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
         )}
 
         <div className="mt-4 border-t border-slate-100 pt-4 text-sm">
