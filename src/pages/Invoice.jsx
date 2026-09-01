@@ -128,49 +128,24 @@ function Invoice() {
         </Alert>
       ) : null}
 
-      <div className="card">
-        <p className="m-0 text-sm text-slate-500">Payment details</p>
-
-        {invoice.has_fee_letter ? (
-          <>
-            <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
-              The full breakdown is in the letter the school sent you. Open it
-              for the amount and the account to transfer to.
-            </p>
-
-            <button
-              className="btn-primary btn-block mt-4"
-              onClick={openLetter}
-              disabled={openingLetter}
-            >
-              <IconFileText size={20} />
-              {openingLetter ? "Opening..." : "Open the Letter"}
-            </button>
-          </>
-        ) : (
+      {invoice.has_fee_letter && (
+        <div className="card">
+          <p className="m-0 text-sm text-slate-500">Payment details</p>
           <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
-            The school is still preparing your fee letter. It will appear here,
-            and will also be sent to your email.
+            The full breakdown is in the letter the school sent you. Open it for
+            the amount and the account to transfer to.
           </p>
-        )}
 
-        <div className="mt-4 border-t border-slate-100 pt-4 text-sm">
-          <div className="flex justify-between">
-            <span className="text-slate-500">Due date</span>
-            <span className="font-semibold">
-              {formatDate(invoice.expires_at)}
-            </span>
-          </div>
-          {invoice.outstanding > 0 && invoice.status === "paid" && (
-            <div className="mt-1 flex justify-between text-red-600">
-              <span>Underpaid</span>
-              <span className="font-semibold">
-                {rupiah(invoice.outstanding)}
-              </span>
-            </div>
-          )}
+          <button
+            className="btn-primary btn-block mt-4"
+            onClick={openLetter}
+            disabled={openingLetter}
+          >
+            <IconFileText size={20} />
+            {openingLetter ? "Opening..." : "Open the Letter"}
+          </button>
         </div>
-      </div>
+      )}
 
       <div className="card">
         <p className="m-0 mb-3 text-sm font-semibold text-slate-500">
@@ -213,6 +188,21 @@ function Invoice() {
             </p>
           </div>
         )}
+
+        <div className="mt-4 border-t border-slate-100 pt-4 text-sm">
+          <div className="flex justify-between">
+            <span className="text-slate-500">Due date</span>
+            <span className="font-semibold">
+              {formatDate(invoice.expires_at)}
+            </span>
+          </div>
+          {invoice.outstanding > 0 && invoice.status === "paid" && (
+            <div className="mt-1 flex justify-between text-red-600">
+              <span>Underpaid</span>
+              <span className="font-semibold">{rupiah(invoice.outstanding)}</span>
+            </div>
+          )}
+        </div>
       </div>
 
       <ReceiptUpload
