@@ -6,7 +6,7 @@ import { errorMessage, request } from "@/utils/request";
 import { IconCopy, IconFileText } from "@tabler/icons-react";
 import { hasToken } from "@/utils/session";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 function Invoice() {
   const [invoice, setInvoice] = useState(null);
@@ -216,6 +216,12 @@ function Invoice() {
           Uploading a receipt does not mark the invoice as paid. The school
           still checks the bank statement before confirming your payment.
         </Alert>
+      )}
+
+      {receipts.length > 0 && (
+        <Link to="/status" className="block no-underline">
+          <button className="btn-primary btn-block">Check Status</button>
+        </Link>
       )}
     </Shell>
   );
