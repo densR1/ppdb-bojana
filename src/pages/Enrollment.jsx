@@ -91,7 +91,7 @@ function Enrollment() {
         url: "/v1/ppdb/registration/enrollment/submit",
         method: "post",
       });
-      navigate("/status");
+      navigate("/status/invoice");
     } catch (err) {
       setFieldErrors(err.response?.data?.data?.errors ?? {});
       setError(errorMessage(err, "Cannot submit yet"));
