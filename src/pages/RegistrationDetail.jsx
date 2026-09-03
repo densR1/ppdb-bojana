@@ -109,7 +109,17 @@ function RegistrationDetail() {
   }
 
   const child = registration?.students?.[0];
-  const step = NEXT_STEP[registration?.current_state];
+  const waitingForCheck =
+    registration?.invoice?.status === "unpaid" &&
+    registration?.invoice?.has_payment_proof;
+
+  const step = waitingForCheck
+    ? {
+        title: "Waiting for the school to check your payment",
+        body: "Your receipt is in. The school matches it against the bank statement before confirming, so this can take a day or two.",
+        action: { to: "/status/invoice", label: "View Invoice" },
+      }
+    : NEXT_STEP[registration?.current_state];
   const timeline = registration?.timeline ?? [];
 
   return (
