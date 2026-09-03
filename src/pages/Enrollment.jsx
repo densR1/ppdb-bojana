@@ -236,10 +236,9 @@ function Enrollment() {
         <IconCheck size={20} />
         {submitting ? "Submitting..." : "Submit"}
       </button>
-
       <Alert type="info">
-        Once submitted, the school reviews every document. If something needs
-        replacing, this page opens again with a note telling you what to fix.
+        Once submitted, the school fee invoice is issued and this page
+        closes.
       </Alert>
     </Shell>
   );
