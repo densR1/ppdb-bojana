@@ -148,9 +148,9 @@ function Invoice() {
       )}
 
       <div className="card">
-        <p className="m-0 mb-3 text-sm font-semibold text-slate-500">
+        <h2 className="m-0 mb-3 text-base font-bold text-navy">
           Transfer to
-        </p>
+        </h2>
 
         {instructions.account_number ? (
           <>
