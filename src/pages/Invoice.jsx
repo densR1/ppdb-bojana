@@ -130,7 +130,7 @@ function Invoice() {
 
       {invoice.has_fee_letter && (
         <div className="card">
-          <p className="m-0 text-sm text-slate-500">Payment details</p>
+          <h2 className="m-0 text-base font-bold text-navy">Payment details</h2>
           <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
             The full breakdown is in the letter the school sent you. Open it for
             the amount and the account to transfer to.
