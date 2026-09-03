@@ -234,7 +234,7 @@ function Enrollment() {
         disabled={submitting || outstanding.length > 0}
       >
         <IconCheck size={20} />
-        {submitting ? "Submitting..." : "Submit for Review"}
+        {submitting ? "Submitting..." : "Submit"}
       </button>
 
       <Alert type="info">
