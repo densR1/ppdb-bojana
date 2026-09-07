@@ -147,63 +147,65 @@ function Invoice() {
         </div>
       )}
 
-      <div className="card">
-        <h2 className="m-0 mb-3 text-base font-bold text-navy">
-          Transfer to
-        </h2>
+      {invoice.status !== "paid" && (
+        <div className="card">
+          <h2 className="m-0 mb-3 text-base font-bold text-navy">
+            Transfer to
+          </h2>
 
-        {instructions.account_number ? (
-          <>
-            <p className="m-0 text-sm">{instructions.bank}</p>
-            <p className="m-0 text-2xl font-bold tabular-nums text-navy">
-              {instructions.account_number}
-            </p>
+          {instructions.account_number ? (
+            <>
+              <p className="m-0 text-sm">{instructions.bank}</p>
+              <p className="m-0 text-2xl font-bold tabular-nums text-navy">
+                {instructions.account_number}
+              </p>
+              <p className="m-0 text-sm text-slate-500">
+                on behalf of {instructions.account_holder}
+              </p>
+
+              <button
+                onClick={() => copy(instructions.account_number, "account")}
+                className="mt-2 flex items-center gap-1.5 text-sm font-medium text-secondary"
+              >
+                <IconCopy size={16} />
+                {copied === "account"
+                  ? "Account number copied"
+                  : "Copy account number"}
+              </button>
+            </>
+          ) : (
             <p className="m-0 text-sm text-slate-500">
-              on behalf of {instructions.account_holder}
+              Bank details are not set yet. Please contact the school.
             </p>
+          )}
 
-            <button
-              onClick={() => copy(instructions.account_number, "account")}
-              className="mt-2 flex items-center gap-1.5 text-sm font-medium text-secondary"
-            >
-              <IconCopy size={16} />
-              {copied === "account"
-                ? "Account number copied"
-                : "Copy account number"}
-            </button>
-          </>
-        ) : (
-          <p className="m-0 text-sm text-slate-500">
-            Bank details are not set yet. Please contact the school.
-          </p>
-        )}
-
-        {instructions.payment_reference && (
-          <div className="mt-4 rounded-xl bg-slate-50 p-3 text-sm">
-            <p className="m-0 text-slate-500">
-              Write this in the transfer note
-            </p>
-            <p className="m-0 font-semibold text-navy">
-              {instructions.payment_reference}
-            </p>
-          </div>
-        )}
-
-        <div className="mt-4 border-t border-slate-100 pt-4 text-sm">
-          <div className="flex justify-between">
-            <span className="text-slate-500">Due date</span>
-            <span className="font-semibold">
-              {formatDate(invoice.expires_at)}
-            </span>
-          </div>
-          {invoice.outstanding > 0 && invoice.status === "paid" && (
-            <div className="mt-1 flex justify-between text-red-600">
-              <span>Underpaid</span>
-              <span className="font-semibold">{rupiah(invoice.outstanding)}</span>
+          {instructions.payment_reference && (
+            <div className="mt-4 rounded-xl bg-slate-50 p-3 text-sm">
+              <p className="m-0 text-slate-500">
+                Write this in the transfer note
+              </p>
+              <p className="m-0 font-semibold text-navy">
+                {instructions.payment_reference}
+              </p>
             </div>
           )}
+
+          <div className="mt-4 border-t border-slate-100 pt-4 text-sm">
+            <div className="flex justify-between">
+              <span className="text-slate-500">Due date</span>
+              <span className="font-semibold">
+                {formatDate(invoice.expires_at)}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {invoice.outstanding > 0 && invoice.status === "paid" && (
+        <Alert type="error" title="Underpaid">
+          Short by {rupiah(invoice.outstanding)}. Please contact the school.
+        </Alert>
+      )}
 
       <ReceiptUpload
         receipts={receipts}
