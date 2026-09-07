@@ -97,20 +97,13 @@ function Invoice() {
           </Alert>
 
           {invoice.receipt_number && (
-            <div className="card border-2 border-emerald-200 bg-emerald-50/60">
-              <p className="m-0 text-sm font-semibold text-emerald-800">
-                Receipt
-              </p>
-              <p className="m-0 mt-1 text-2xl font-bold tracking-wide text-navy">
+            <div className="card">
+              <p className="m-0 text-sm text-slate-500">Receipt number</p>
+              <p className="m-0 mt-1 text-base font-semibold tracking-wide text-navy">
                 {invoice.receipt_number}
               </p>
               <p className="m-0 mt-1 text-xs text-slate-500">
-                {invoice.type_label} &middot; issued{" "}
-                {formatDateTime(invoice.receipt_issued_at)}
-              </p>
-              <p className="m-0 mt-3 text-sm text-slate-600">
-                Keep this number. Mention it if you ever need to ask the school
-                about this payment.
+                Issued {formatDateTime(invoice.receipt_issued_at)}
               </p>
             </div>
           )}
@@ -156,7 +149,7 @@ function Invoice() {
           {instructions.account_number ? (
             <>
               <p className="m-0 text-sm">{instructions.bank}</p>
-              <p className="m-0 text-2xl font-bold tabular-nums text-navy">
+              <p className="m-0 text-lg font-semibold tabular-nums text-navy">
                 {instructions.account_number}
               </p>
               <p className="m-0 text-sm text-slate-500">
