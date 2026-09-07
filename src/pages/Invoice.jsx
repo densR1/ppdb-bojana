@@ -205,6 +205,12 @@ function Invoice() {
         canUpload={invoice.status !== "paid"}
         onUploaded={load}
       />
+      {invoice.proof_reject_reason && (
+        <Alert type="error" title="Bukti transfer ditolak">
+          {invoice.proof_reject_reason} Silakan unggah ulang bukti transfer di
+          bawah ini.
+        </Alert>
+      )}
 
       {unpaid && (
         <Alert type="info">
