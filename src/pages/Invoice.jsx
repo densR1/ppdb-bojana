@@ -208,7 +208,7 @@ function Invoice() {
       {invoice.proof_reject_reason && (
         <Alert type="error" title="Bukti transfer ditolak">
           {invoice.proof_reject_reason} Silakan unggah ulang bukti transfer di
-          bawah ini.
+          bawah ini.oko
         </Alert>
       )}
 

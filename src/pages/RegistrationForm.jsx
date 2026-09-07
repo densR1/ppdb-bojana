@@ -61,6 +61,7 @@ const initial = {
   emergency_relation: "",
   emergency_address: "",
   emergency_phone: "",
+  parent_expectation: "",
 };
 
 const STEPS = [
@@ -588,6 +589,18 @@ function RegistrationForm() {
                 required
               />
             </Field>
+
+              <Field
+                label="Your hopes for your child"
+                hint="Optional. What you would like the school to know."
+              >
+                <textarea
+                  className="input"
+                  rows={3}
+                  value={values.parent_expectation}
+                  onChange={set("parent_expectation")}
+                />
+              </Field>
           </div>
         )}
 
