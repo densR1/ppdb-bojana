@@ -126,23 +126,16 @@ function Invoice() {
         </Alert>
       ) : null}
 
-      <div className="card">
-        <p className="m-0 text-sm text-slate-500">{invoice.type_label}</p>
-        <p className="m-0 mt-1 text-2xl font-bold tabular-nums text-navy">
-          {rupiah(invoice.amount_invoiced)}
-        </p>
-
-        {invoice.components?.length > 0 && (
-          <div className="mt-3 border-t border-slate-100 pt-3">
-            <p className="m-0 text-sm text-slate-500">This payment covers</p>
-            <ul className="m-0 mt-1 list-disc space-y-0.5 pl-5 text-sm text-navy">
-              {invoice.components.map((item) => (
-                <li key={item.label}>{item.label}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
+      {invoice.components?.length > 0 && (
+        <div className="card">
+          <p className="m-0 text-sm text-slate-500">This payment covers</p>
+          <ul className="m-0 mt-2 list-disc space-y-0.5 pl-5 text-sm text-navy">
+            {invoice.components.map((item) => (
+              <li key={item.label}>{item.label}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {invoice.has_fee_letter && (
         <div className="card">
@@ -242,9 +235,11 @@ function Invoice() {
         </Alert>
       )}
 
-      <Link to="/status" className="block no-underline">
-        <button className="btn-primary btn-block">Check Status</button>
-      </Link>
+      {receipts.length > 0 && (
+        <Link to="/status" className="block no-underline">
+          <button className="btn-primary btn-block">Check Status</button>
+        </Link>
+      )}
     </Shell>
   );
 }
