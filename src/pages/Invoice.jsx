@@ -122,6 +122,24 @@ function Invoice() {
         </Alert>
       ) : null}
 
+      <div className="card">
+        <p className="m-0 text-sm text-slate-500">{invoice.type_label}</p>
+        <p className="m-0 mt-1 text-2xl font-bold tabular-nums text-navy">
+          {rupiah(invoice.amount_invoiced)}
+        </p>
+
+        {invoice.components?.length > 0 && (
+          <div className="mt-3 border-t border-slate-100 pt-3">
+            <p className="m-0 text-sm text-slate-500">This payment covers</p>
+            <ul className="m-0 mt-1 list-disc space-y-0.5 pl-5 text-sm text-navy">
+              {invoice.components.map((item) => (
+                <li key={item.label}>{item.label}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
       {invoice.has_fee_letter && (
         <div className="card">
           <h2 className="m-0 text-base font-bold text-navy">Payment details</h2>
