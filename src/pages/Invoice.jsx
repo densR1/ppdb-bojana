@@ -87,7 +87,11 @@ function Invoice() {
   const remaining = daysLeft(invoice.expires_at);
   const unpaid = invoice.status === "unpaid";
   const proofRejected = unpaid && Boolean(invoice.proof_rejected_at);
-  const receipts = invoice.payment_proof ?? [];
+  // Hanya berkas terakhir yang ditampilkan. Unggahan lama tetap tersimpan
+  // sebagai bukti dan masih terlihat oleh sekolah.
+  const receipts = [...(invoice.payment_proof ?? [])]
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    .slice(0, 1);
 
   return (
     <Shell title="Invoice" subtitle={invoice.type_label} backTo={backTo}>
