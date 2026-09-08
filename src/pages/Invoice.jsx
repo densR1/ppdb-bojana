@@ -114,10 +114,10 @@ function Invoice() {
           will review it.
         </Alert>
       ) : remaining !== null && remaining <= 2 ? (
-        <Alert type="warning" title="Payment due soon">
+        <Alert type="info" title="Payment reminder">
           {remaining <= 0
-            ? "Today is the last day."
-            : `Only ${remaining} day(s) left.`}
+            ? "The due date on this invoice is today."
+            : `${remaining} day(s) until the due date on this invoice.`}
         </Alert>
       ) : null}
 
