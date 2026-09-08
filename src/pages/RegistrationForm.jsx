@@ -61,7 +61,6 @@ const initial = {
   emergency_relation: "",
   emergency_address: "",
   emergency_phone: "",
-  parent_expectation: "",
 };
 
 const STEPS = [
@@ -88,7 +87,12 @@ const REQUIRED = [
   Object.keys(emptyGuardian).map((key) => `father.${key}`),
   Object.keys(emptyGuardian).map((key) => `mother.${key}`),
   [],
-  ["emergency_name", "emergency_relation", "emergency_address", "emergency_phone"],
+  [
+    "emergency_name",
+    "emergency_relation",
+    "emergency_address",
+    "emergency_phone",
+  ],
 ];
 
 const pick = (obj, path) =>
@@ -382,8 +386,8 @@ function RegistrationForm() {
                 index < step
                   ? "bg-primary"
                   : index === step
-                  ? "bg-secondary"
-                  : "bg-slate-200"
+                    ? "bg-secondary"
+                    : "bg-slate-200"
               }`}
             />
           </li>
@@ -589,18 +593,6 @@ function RegistrationForm() {
                 required
               />
             </Field>
-
-              <Field
-                label="Your hopes for your child"
-                hint="Optional. What you would like the school to know."
-              >
-                <textarea
-                  className="input"
-                  rows={3}
-                  value={values.parent_expectation}
-                  onChange={set("parent_expectation")}
-                />
-              </Field>
           </div>
         )}
 
@@ -616,10 +608,7 @@ function RegistrationForm() {
               Next
             </button>
           ) : (
-            <button
-              className="btn-primary btn-block"
-              disabled={submitting}
-            >
+            <button className="btn-primary btn-block" disabled={submitting}>
               <IconCheck size={20} />
               {submitting ? "Submitting..." : "Submit Registration"}
             </button>

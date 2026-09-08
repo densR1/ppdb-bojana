@@ -82,6 +82,7 @@ function Enrollment() {
           nik: child.nik,
           gender: child.gender,
           lives_with: child.lives_with,
+          parent_expectation: child.parent_expectation,
         },
       });
 
@@ -139,11 +140,7 @@ function Enrollment() {
     .map((item) => item.label);
 
   return (
-    <Shell
-      title="Re-registration"
-      subtitle={child?.full_name}
-      backTo="/status"
-    >
+    <Shell title="Re-registration" subtitle={child?.full_name} backTo="/status">
       <div className="card space-y-4">
         <h2 className="m-0 text-base font-bold text-navy">
           Complete your child&apos;s details
@@ -196,6 +193,17 @@ function Enrollment() {
           </select>
         </Field>
 
+        <Field
+          label="Harapan dan saran untuk BTIS"
+          hint="Opsional. Sampaikan apa yang Bapak/Ibu harapkan diterapkan di sekolah."
+        >
+          <textarea
+            className="input"
+            rows={3}
+            value={child?.parent_expectation ?? ""}
+            onChange={set("parent_expectation")}
+          />
+        </Field>
       </div>
 
       <div className="card space-y-3">
@@ -237,8 +245,7 @@ function Enrollment() {
         {submitting ? "Submitting..." : "Submit"}
       </button>
       <Alert type="info">
-        Once submitted, the school fee invoice is issued and this page
-        closes.
+        Once submitted, the school fee invoice is issued and this page closes.
       </Alert>
     </Shell>
   );
