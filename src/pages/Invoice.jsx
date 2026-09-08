@@ -86,6 +86,7 @@ function Invoice() {
   const instructions = invoice.instructions ?? {};
   const remaining = daysLeft(invoice.expires_at);
   const unpaid = invoice.status === "unpaid";
+  const proofRejected = unpaid && Boolean(invoice.proof_rejected_at);
   const receipts = invoice.payment_proof ?? [];
 
   return (
@@ -200,17 +201,17 @@ function Invoice() {
         </Alert>
       )}
 
+      {proofRejected && (
+        <Alert type="error" title="Your payment proof was rejected">
+          {invoice.proof_reject_reason} Please upload a new receipt below.
+        </Alert>
+      )}
+
       <ReceiptUpload
         receipts={receipts}
         canUpload={invoice.status !== "paid"}
         onUploaded={load}
       />
-      {invoice.proof_reject_reason && (
-        <Alert type="error" title="Bukti transfer ditolak">
-          {invoice.proof_reject_reason} Silakan unggah ulang bukti transfer di
-          bawah ini.oko
-        </Alert>
-      )}
 
       {unpaid && (
         <Alert type="info">

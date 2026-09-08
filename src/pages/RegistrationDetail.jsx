@@ -109,17 +109,28 @@ function RegistrationDetail() {
   }
 
   const child = registration?.students?.[0];
-  const waitingForCheck =
-    registration?.invoice?.status === "unpaid" &&
-    registration?.invoice?.has_payment_proof;
+  const invoice = registration?.invoice;
+  const proofRejected =
+    invoice?.status === "unpaid" && Boolean(invoice?.proof_rejected_at);
 
-  const step = waitingForCheck
+  const step = proofRejected
     ? {
-        title: "Waiting for the school to check your payment",
-        body: "Your receipt is in. The school matches it against the bank statement before confirming, so this can take a day or two.",
+        title: "Your payment proof was rejected",
+        body: [
+          invoice?.proof_reject_reason,
+          "Please upload a new receipt on the invoice page.",
+        ]
+          .filter(Boolean)
+          .join(" "),
         action: { to: "/status/invoice", label: "View Invoice" },
       }
-    : NEXT_STEP[registration?.current_state];
+    : invoice?.awaiting_proof_review
+      ? {
+          title: "Waiting for the school to check your payment",
+          body: "Your receipt is in. The school matches it against the bank statement before confirming, so this can take a day or two.",
+          action: { to: "/status/invoice", label: "View Invoice" },
+        }
+      : NEXT_STEP[registration?.current_state];
   const timeline = registration?.timeline ?? [];
 
   return (
@@ -163,7 +174,9 @@ function RegistrationDetail() {
                 {registration.invoice.type_label}
               </p>
               <p className="m-0 text-xs text-slate-500">
-                {registration.invoice.status_label}
+                {proofRejected
+                  ? "Payment proof rejected"
+                  : registration.invoice.status_label}
               </p>
             </div>
             <IconChevronRight size={20} className="shrink-0 text-slate-400" />
