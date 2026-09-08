@@ -115,6 +115,7 @@ function RegistrationDetail() {
 
   const step = proofRejected
     ? {
+        tone: "danger",
         title: "Your payment proof was rejected",
         body: [
           invoice?.proof_reject_reason,
@@ -150,14 +151,34 @@ function RegistrationDetail() {
       </div>
 
       {step && (
-        <div className="card border-2 border-primary/30 bg-primary/5">
-          <p className="m-0 text-sm font-semibold text-primary">Next step</p>
+        <div
+          className={
+            step.tone === "danger"
+              ? "card border-2 border-red-200 bg-red-50"
+              : "card border-2 border-primary/30 bg-primary/5"
+          }
+        >
+          <p
+            className={
+              step.tone === "danger"
+                ? "m-0 text-sm font-semibold text-red-600"
+                : "m-0 text-sm font-semibold text-primary"
+            }
+          >
+            Next step
+          </p>
           <p className="m-0 mt-1 text-lg font-bold text-navy">{step.title}</p>
           <p className="m-0 mt-1 text-sm text-slate-600">{step.body}</p>
 
           {step.action && (
             <Link to={step.action.to} className="block no-underline">
-              <button className="btn-primary btn-block mt-4">
+              <button
+                className={
+                  step.tone === "danger"
+                    ? "btn btn-block mt-4 bg-red-600 text-white shadow-sm hover:bg-red-700"
+                    : "btn-primary btn-block mt-4"
+                }
+              >
                 {step.action.label}
               </button>
             </Link>
