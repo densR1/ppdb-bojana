@@ -194,8 +194,8 @@ function Enrollment() {
         </Field>
 
         <Field
-          label="Harapan dan saran untuk BTIS"
-          hint="Opsional. Sampaikan apa yang Bapak/Ibu harapkan diterapkan di sekolah."
+          label="Hopes and Suggestions for BTIS"
+          hint="Optional. Tell us what you would like the school to apply."
         >
           <textarea
             className="input"
