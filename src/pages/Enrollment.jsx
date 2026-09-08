@@ -194,7 +194,7 @@ function Enrollment() {
         </Field>
 
         <Field
-          label="Hopes and Suggestions for BTIS"
+          label="Hopes and Suggestions for Bojana Tirta Islamic School"
           hint="Optional. Tell us what you would like the school to apply."
         >
           <textarea
