@@ -137,14 +137,15 @@ function RegistrationDetail() {
   const timeline = registration?.timeline ?? [];
 
   return (
-    <Shell
-      title="My Registration"
-      subtitle={registration?.registration_number}
-      backTo="/"
-    >
+    <Shell title="My Registration" backTo="/">
       <div className="card">
         <p className="m-0 text-lg font-bold text-navy">{child?.full_name}</p>
-        <div className="mt-3">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          {registration?.registration_number && (
+            <span className="inline-block rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wide text-secondary-dark">
+              {registration.registration_number}
+            </span>
+          )}
           <StatusBadge
             status={registration?.current_state}
             label={registration?.current_state_label}
