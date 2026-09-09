@@ -56,6 +56,8 @@ const NEXT_STEP = {
     body: "Please wait while the school reviews your documents.",
   },
   enrolled: {
+    // Sudah selesai, jadi tidak diberi label "Next step".
+    kicker: null,
     title: "Your child is accepted",
     body: "Congratulations! The school will contact you about the next steps.",
   },
@@ -154,19 +156,21 @@ function RegistrationDetail() {
         <div
           className={
             step.tone === "danger"
-              ? "card border-2 border-red-200 bg-red-50"
-              : "card border-2 border-primary/30 bg-primary/5"
+              ? "card border-2 border-red-300 bg-red-50"
+              : "card border-2 border-primary/60 bg-primary/15"
           }
         >
-          <p
-            className={
-              step.tone === "danger"
-                ? "m-0 text-sm font-semibold text-red-600"
-                : "m-0 text-sm font-semibold text-primary"
-            }
-          >
-            Next step
-          </p>
+          {step.kicker !== null && (
+            <p
+              className={
+                step.tone === "danger"
+                  ? "m-0 text-sm font-semibold text-red-700"
+                  : "m-0 text-sm font-semibold text-primary-dark"
+              }
+            >
+              {step.kicker ?? "Next step"}
+            </p>
+          )}
           <p className="m-0 mt-1 text-lg font-bold text-navy">{step.title}</p>
           <p className="m-0 mt-1 text-sm text-slate-600">{step.body}</p>
 
