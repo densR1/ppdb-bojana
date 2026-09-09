@@ -22,12 +22,12 @@ const s = StyleSheet.create({
   },
   capAir: {
     position: "absolute",
-    top: 110,
-    left: 130,
-    width: 240,
-    height: 240,
+    top: 150,
+    left: 172,
+    width: 160,
+    height: 160,
     objectFit: "contain",
-    opacity: 0.2,
+    opacity: 0.1,
   },
   kop: {
     flexDirection: "row",
