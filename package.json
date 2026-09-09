@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.4.5",
     "@tabler/icons-react": "^2.7.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",

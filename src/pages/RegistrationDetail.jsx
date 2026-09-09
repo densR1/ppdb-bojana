@@ -1,4 +1,5 @@
 import Alert from "@/components/Alert";
+import ReceiptCard from "@/components/ReceiptCard";
 import Shell from "@/components/Shell";
 import StatusBadge from "@/components/StatusBadge";
 import { formatDateTime } from "@/utils/format";
@@ -209,6 +210,8 @@ function RegistrationDetail() {
           </div>
         </Link>
       )}
+
+      <ReceiptCard />
 
       {timeline.length > 0 && (
         <div className="card">
