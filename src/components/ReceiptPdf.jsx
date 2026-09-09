@@ -12,18 +12,17 @@ const rupiah = (nilai) =>
   `Rp ${new Intl.NumberFormat("id-ID").format(nilai ?? 0)}`;
 
 const s = StyleSheet.create({
-  page: { padding: 28, fontSize: 9, fontFamily: "Helvetica" },
+  page: { padding: 18, fontSize: 9, fontFamily: "Helvetica" },
   lembar: {
     borderWidth: 1,
     borderColor: "#000",
-    padding: 16,
-    marginBottom: 16,
+    padding: 14,
     position: "relative",
   },
   capAir: {
     position: "absolute",
-    top: 150,
-    left: 172,
+    top: 90,
+    left: 180,
     width: 160,
     height: 160,
     objectFit: "contain",
@@ -163,7 +162,7 @@ function Lembar({ data }) {
 function ReceiptPdf({ data }) {
   return (
     <Document title={`Kwitansi ${data?.receipt_number ?? ""}`}>
-      <Page size="A4" style={s.page}>
+      <Page size="A5" orientation="landscape" style={s.page}>
         <Lembar data={data} />
       </Page>
     </Document>
