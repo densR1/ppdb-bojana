@@ -134,6 +134,7 @@ function Lembar({ data }) {
             {data.covers.map((pos, i) => (
               <Text key={pos.label} style={s.pos}>
                 {i + 1}. {pos.label}
+                {pos.amount > 0 ? ` : ${rupiah(pos.amount)}` : ""}
               </Text>
             ))}
           </View>
