@@ -126,17 +126,6 @@ function Invoice() {
         </Alert>
       ) : null}
 
-      {invoice.components?.length > 0 && (
-        <div className="card">
-          <p className="m-0 text-sm text-slate-500">This payment covers</p>
-          <ul className="m-0 mt-2 list-disc space-y-0.5 pl-5 text-sm text-navy">
-            {invoice.components.map((item) => (
-              <li key={item.label}>{item.label}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       {invoice.has_fee_letter && (
         <div className="card">
           <h2 className="m-0 text-base font-bold text-navy">Payment details</h2>
@@ -146,7 +135,7 @@ function Invoice() {
           </p>
 
           <button
-            className="btn-secondary btn-block mt-4"
+            className="btn-blue btn-block mt-4"
             onClick={openLetter}
             disabled={openingLetter}
           >
