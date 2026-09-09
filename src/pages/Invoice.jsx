@@ -146,7 +146,7 @@ function Invoice() {
           </p>
 
           <button
-            className="btn-primary btn-block mt-4"
+            className="btn-secondary btn-block mt-4"
             onClick={openLetter}
             disabled={openingLetter}
           >
