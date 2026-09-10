@@ -56,20 +56,39 @@ function ReceiptCard() {
 
   return (
     <div className="card">
-      <p className="m-0 mb-3 text-sm font-semibold text-slate-500">Receipts</p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="m-0 text-base font-bold text-navy">
+            Receipts &amp; Payments
+          </p>
+          <p className="m-0 mt-0.5 text-sm text-slate-500">
+            Verified proof of the payments the school has confirmed
+          </p>
+        </div>
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+          {receipts.length} {receipts.length === 1 ? "Document" : "Documents"}
+        </span>
+      </div>
 
-      <ul className="m-0 list-none space-y-3 p-0">
+      <ul className="m-0 mt-4 list-none space-y-3 p-0">
         {receipts.map((receipt) => (
           <li
             key={receipt.receipt_number}
             className="flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 p-3"
           >
-            <IconReceipt size={20} className="shrink-0 text-slate-400" />
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-400">
+              <IconReceipt size={20} />
+            </span>
             <div className="min-w-0 flex-1">
-              <p className="m-0 text-sm font-semibold text-navy">
-                {receipt.fee_label}
-              </p>
-              <p className="m-0 text-xs text-slate-500">
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="m-0 text-sm font-semibold text-navy">
+                  {receipt.fee_label}
+                </p>
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">
+                  Paid
+                </span>
+              </div>
+              <p className="m-0 mt-0.5 text-xs text-slate-500">
                 {receipt.receipt_number} &middot;{" "}
                 {formatDateTime(receipt.issued_at)}
               </p>
@@ -80,7 +99,9 @@ function ReceiptCard() {
               disabled={sedang === receipt.receipt_number}
             >
               <IconDownload size={16} />
-              {sedang === receipt.receipt_number ? "Preparing..." : "Download"}
+              {sedang === receipt.receipt_number
+                ? "Preparing..."
+                : "Download PDF"}
             </button>
           </li>
         ))}

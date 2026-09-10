@@ -5,7 +5,7 @@ import StatusBadge from "@/components/StatusBadge";
 import { formatDateTime } from "@/utils/format";
 import { errorMessage, request } from "@/utils/request";
 import { hasToken } from "@/utils/session";
-import { IconChevronRight } from "@tabler/icons-react";
+import { IconCheck, IconChevronRight } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
@@ -57,9 +57,8 @@ const NEXT_STEP = {
     body: "Please wait while the school reviews your documents.",
   },
   enrolled: {
-    // Sudah selesai, jadi tidak diberi label "Next step".
-    kicker: null,
-    title: "Your child is accepted",
+    kicker: "Official admission decision",
+    title: "Your child is officially accepted",
     body: "Congratulations! The school will contact you about the next steps.",
   },
   cancelled: {
@@ -67,6 +66,14 @@ const NEXT_STEP = {
     body: "Please contact the school if you think this is a mistake.",
   },
 };
+
+const inisial = (nama) =>
+  (nama ?? "")
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((kata) => kata[0].toUpperCase())
+    .join("") || "?";
 
 function RegistrationDetail() {
   const [registration, setRegistration] = useState(null);
@@ -113,6 +120,9 @@ function RegistrationDetail() {
 
   const child = registration?.students?.[0];
   const invoice = registration?.invoice;
+  const timeline = registration?.timeline ?? [];
+  const selesai = registration?.current_state === "enrolled";
+
   const proofRejected =
     invoice?.status === "unpaid" && Boolean(invoice?.proof_rejected_at);
 
@@ -135,116 +145,195 @@ function RegistrationDetail() {
           action: { to: "/status/invoice", label: "View Invoice" },
         }
       : NEXT_STEP[registration?.current_state];
-  const timeline = registration?.timeline ?? [];
+
+  const nadaSorot = proofRejected
+    ? "border-red-200 bg-red-50"
+    : selesai
+      ? "border-emerald-200 bg-emerald-50/70"
+      : "border-primary/40 bg-primary/10";
 
   return (
-    <Shell title="My Registration" backTo="/">
-      <div className="card">
-        <p className="m-0 text-lg font-bold text-navy">{child?.full_name}</p>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          {registration?.registration_number && (
-            <span className="inline-block rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wide text-secondary-dark">
-              {registration.registration_number}
-            </span>
-          )}
-          <StatusBadge
-            status={registration?.current_state}
-            label={registration?.current_state_label}
-          />
-        </div>
-      </div>
+    <Shell title="My Registration" backTo="/" narrow={false}>
+      <div className="container-app grid items-start gap-5 py-8 lg:grid-cols-5">
+        <div className="space-y-5 lg:col-span-3">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="h-1.5 bg-gradient-to-r from-navy via-secondary to-primary" />
 
-      {step && (
-        <div
-          className={
-            step.tone === "danger"
-              ? "card border-2 border-red-300 bg-red-50"
-              : "card border-2 border-primary/60 bg-primary/15"
-          }
-        >
-          {step.kicker !== null && (
-            <p
-              className={
-                step.tone === "danger"
-                  ? "m-0 text-sm font-semibold text-red-700"
-                  : "m-0 text-sm font-semibold text-primary-dark"
-              }
-            >
-              {step.kicker ?? "Next step"}
-            </p>
-          )}
-          <p className="m-0 mt-1 text-lg font-bold text-navy">{step.title}</p>
-          <p className="m-0 mt-1 text-sm text-slate-600">{step.body}</p>
+            <div className="p-6">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-bold text-white">
+                    {inisial(child?.full_name)}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="m-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      Prospective Student
+                    </p>
+                    <p className="m-0 text-xl font-bold text-navy">
+                      {child?.full_name ?? "-"}
+                    </p>
+                  </div>
+                </div>
 
-          {step.action && (
-            <Link to={step.action.to} className="block no-underline">
-              <button
-                className={
-                  step.tone === "danger"
-                    ? "btn btn-block mt-4 bg-red-600 text-white shadow-sm hover:bg-red-700"
-                    : "btn-primary btn-block mt-4"
-                }
-              >
-                {step.action.label}
-              </button>
-            </Link>
-          )}
-        </div>
-      )}
+                <div className="flex flex-wrap items-center gap-2">
+                  {registration?.registration_number && (
+                    <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wide text-secondary-dark">
+                      {registration.registration_number}
+                    </span>
+                  )}
+                  <StatusBadge
+                    status={registration?.current_state}
+                    label={registration?.current_state_label}
+                  />
+                </div>
+              </div>
 
-      {registration?.invoice?.id && step?.action?.to !== "/status/invoice" && (
-        <Link to="/status/invoice" className="block no-underline">
-          <div className="card flex items-center gap-3 transition hover:border-secondary hover:shadow-md">
-            <div className="min-w-0 flex-1">
-              <p className="m-0 text-sm text-slate-500">Invoice</p>
-              <p className="m-0 font-semibold text-navy">
-                {registration.invoice.type_label}
-              </p>
-              <p className="m-0 text-xs text-slate-500">
-                {proofRejected
-                  ? "Payment proof rejected"
-                  : registration.invoice.status_label}
-              </p>
-            </div>
-            <IconChevronRight size={20} className="shrink-0 text-slate-400" />
-          </div>
-        </Link>
-      )}
+              {step && (
+                <div
+                  className={`mt-6 rounded-2xl border-2 border-solid p-5 ${nadaSorot}`}
+                >
+                  <p className="m-0 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    {step.kicker ?? "Next step"}
+                  </p>
+                  <p className="m-0 mt-2 text-xl font-bold leading-snug text-navy">
+                    {step.title}
+                  </p>
+                  <p className="m-0 mt-2 text-sm leading-relaxed text-slate-600">
+                    {step.body}
+                  </p>
 
-      <ReceiptCard />
-
-      {timeline.length > 0 && (
-        <div className="card">
-          <p className="m-0 mb-4 text-sm font-semibold text-slate-500">
-            History
-          </p>
-          <ol className="m-0 list-none space-y-4 p-0">
-            {timeline.map((item, index) => (
-              <li key={index} className="flex gap-3">
-                <div className="flex flex-col items-center">
-                  <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" />
-                  {index < timeline.length - 1 && (
-                    <span className="mt-1 w-px flex-1 bg-slate-200" />
+                  {step.action && (
+                    <Link
+                      to={step.action.to}
+                      className="block no-underline sm:inline-block"
+                    >
+                      <button
+                        className={
+                          proofRejected
+                            ? "btn mt-4 w-full bg-red-600 text-white shadow-sm hover:bg-red-700 sm:w-auto"
+                            : "btn-primary mt-4 w-full sm:w-auto"
+                        }
+                      >
+                        {step.action.label}
+                      </button>
+                    </Link>
                   )}
                 </div>
-                <div className="min-w-0 flex-1 pb-1">
-                  <p className="m-0 text-sm font-medium text-navy">
-                    {item.label}
+              )}
+
+              {selesai && (
+                <p className="m-0 mt-4 text-sm text-slate-500">
+                  Our administration office will follow up by WhatsApp and
+                  email.
+                </p>
+              )}
+            </div>
+          </div>
+
+          {invoice?.id && step?.action?.to !== "/status/invoice" && (
+            <Link to="/status/invoice" className="block no-underline">
+              <div className="card flex items-center gap-3 transition hover:border-secondary hover:shadow-md">
+                <div className="min-w-0 flex-1">
+                  <p className="m-0 text-sm text-slate-500">Invoice</p>
+                  <p className="m-0 font-semibold text-navy">
+                    {invoice.type_label}
                   </p>
                   <p className="m-0 text-xs text-slate-500">
-                    {formatDateTime(item.at)}
+                    {proofRejected
+                      ? "Payment proof rejected"
+                      : invoice.status_label}
                   </p>
-                  {item.reason && (
-                    <p className="m-0 mt-1 text-sm italic text-slate-600">
-                      {item.reason}
-                    </p>
-                  )}
                 </div>
-              </li>
-            ))}
-          </ol>
+                <IconChevronRight
+                  size={20}
+                  className="shrink-0 text-slate-400"
+                />
+              </div>
+            </Link>
+          )}
+
+          <ReceiptCard />
         </div>
-      )}
+
+        <div className="lg:col-span-2">
+          {timeline.length > 0 && (
+            <div className="card">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="m-0 text-base font-bold text-navy">
+                    Registration History
+                  </p>
+                  <p className="m-0 mt-0.5 text-sm text-slate-500">
+                    Step-by-step admission progress
+                  </p>
+                </div>
+                <span
+                  className={
+                    selesai
+                      ? "rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800"
+                      : "rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600"
+                  }
+                >
+                  {selesai ? "Completed" : "In progress"}
+                </span>
+              </div>
+
+              <ol className="m-0 mt-5 list-none space-y-1 p-0">
+                {timeline.map((item, index) => {
+                  const terakhir = index === timeline.length - 1;
+                  const akhir = terakhir && selesai;
+
+                  return (
+                    <li key={index} className="flex gap-3">
+                      <div className="flex flex-col items-center">
+                        <span
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
+                            akhir
+                              ? "bg-emerald-100 text-emerald-700"
+                              : "bg-primary/20 text-primary-dark"
+                          }`}
+                        >
+                          <IconCheck size={14} stroke={3} />
+                        </span>
+                        {!terakhir && (
+                          <span className="my-1 w-px flex-1 bg-slate-200" />
+                        )}
+                      </div>
+
+                      <div
+                        className={`min-w-0 flex-1 pb-5 ${
+                          akhir
+                            ? "-mt-1 mb-1 rounded-xl border border-solid border-emerald-200 bg-emerald-50/70 p-3 pb-3"
+                            : ""
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="m-0 text-sm font-semibold text-navy">
+                            {item.label}
+                          </p>
+                          {akhir && (
+                            <span className="shrink-0 text-xs font-semibold text-emerald-700">
+                              Final
+                            </span>
+                          )}
+                        </div>
+                        <p className="m-0 mt-0.5 font-mono text-xs text-slate-500">
+                          {formatDateTime(item.at)}
+                        </p>
+                        {item.reason && (
+                          <p className="m-0 mt-1 text-sm italic text-slate-600">
+                            {item.reason}
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          )}
+        </div>
+      </div>
     </Shell>
   );
 }
