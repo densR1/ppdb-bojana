@@ -5,7 +5,12 @@ import StatusBadge from "@/components/StatusBadge";
 import { formatDateTime } from "@/utils/format";
 import { errorMessage, request } from "@/utils/request";
 import { hasToken } from "@/utils/session";
-import { IconCheck, IconChevronRight } from "@tabler/icons-react";
+import {
+  IconBrandWhatsapp,
+  IconCheck,
+  IconChevronRight,
+  IconMail,
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
@@ -65,6 +70,11 @@ const NEXT_STEP = {
     title: "Registration cancelled",
     body: "Please contact the school if you think this is a mistake.",
   },
+};
+
+const HELPDESK = {
+  whatsapp: "+62 811-375-566",
+  email: "btisprimary@gmail.com",
 };
 
 const inisial = (nama) =>
@@ -332,6 +342,38 @@ function RegistrationDetail() {
               </ol>
             </div>
           )}
+
+          <div className="card mt-5 bg-navy text-white">
+            <p className="m-0 text-base font-bold">Admission Helpdesk</p>
+            <p className="m-0 mt-1 text-sm text-white/70">
+              Ask us anything about your registration.
+            </p>
+
+            <div className="mt-4 space-y-3 border-t border-white/15 pt-4 text-sm">
+              <a
+                href={`https://wa.me/${HELPDESK.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 text-white no-underline"
+              >
+                <IconBrandWhatsapp
+                  size={18}
+                  className="shrink-0 text-white/60"
+                />
+                <span className="flex-1">WhatsApp</span>
+                <span className="font-semibold">{HELPDESK.whatsapp}</span>
+              </a>
+
+              <a
+                href={`mailto:${HELPDESK.email}`}
+                className="flex items-center gap-3 text-white no-underline"
+              >
+                <IconMail size={18} className="shrink-0 text-white/60" />
+                <span className="flex-1">Email</span>
+                <span className="truncate font-semibold">{HELPDESK.email}</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </Shell>
