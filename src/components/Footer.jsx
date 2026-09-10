@@ -42,7 +42,7 @@ function Footer() {
           <img
             src="/images/borderless-logo.png"
             alt="Bojana Tirta Islamic School"
-            className="h-14 w-auto"
+            className="h-[72px] w-auto"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/85">
             Nurturing a Qurani generation with noble character, strong academics,
