@@ -9,7 +9,6 @@ import {
   IconBrandWhatsapp,
   IconCheck,
   IconChevronRight,
-  IconMail,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
@@ -72,9 +71,26 @@ const NEXT_STEP = {
   },
 };
 
+// Penjelasan singkat tiap langkah di riwayat. Ini keterangan arti statusnya,
+// bukan data pendaftar — jadi tidak ada yang dikarang di sini.
+const ARTI_LANGKAH = {
+  draft: "Application form created",
+  awaiting_registration_payment: "Registration fee invoice issued",
+  registration_paid: "Registration fee confirmed by the school",
+  scheduled: "Psychotest session assigned",
+  psychotest_completed: "Attended the psychotest",
+  absent: "Missed the psychotest session",
+  passed: "Passed the psychotest",
+  not_passed: "Did not pass the psychotest",
+  awaiting_school_fee_payment: "School fee invoice issued",
+  document_submission: "Re-registration documents requested",
+  document_review: "Documents submitted, waiting for the school to check",
+  enrolled: "Enrolled at Bojana Tirta Islamic School",
+  cancelled: "Registration closed",
+};
+
 const HELPDESK = {
   whatsapp: "+62 811-375-566",
-  email: "btisprimary@gmail.com",
 };
 
 const inisial = (nama) =>
@@ -162,12 +178,20 @@ function RegistrationDetail() {
       ? "border-emerald-200 bg-emerald-50/70"
       : "border-primary/40 bg-primary/10";
 
+  const pesanWhatsapp =
+    `https://wa.me/${HELPDESK.whatsapp.replace(/\D/g, "")}?text=` +
+    encodeURIComponent(
+      `Halo, saya ingin bertanya soal pendaftaran ${
+        registration?.registration_number ?? ""
+      } atas nama ${child?.full_name ?? ""}.`,
+    );
+
   return (
     <Shell title="My Registration" backTo="/" narrow={false}>
       <div className="container-app grid items-start gap-5 py-8 lg:grid-cols-5">
         <div className="space-y-5 lg:col-span-3">
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <div className="h-1.5 bg-gradient-to-r from-navy via-secondary to-primary" />
+            <div className="h-1.5 bg-secondary" />
 
             <div className="p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
@@ -327,7 +351,12 @@ function RegistrationDetail() {
                             </span>
                           )}
                         </div>
-                        <p className="m-0 mt-0.5 font-mono text-xs text-slate-500">
+                        {ARTI_LANGKAH[item.state] && (
+                          <p className="m-0 mt-0.5 text-sm text-slate-600">
+                            {ARTI_LANGKAH[item.state]}
+                          </p>
+                        )}
+                        <p className="m-0 mt-1 font-mono text-xs text-slate-400">
                           {formatDateTime(item.at)}
                         </p>
                         {item.reason && (
@@ -343,34 +372,21 @@ function RegistrationDetail() {
             </div>
           )}
 
-          <div className="card mt-5 bg-navy text-white">
-            <p className="m-0 text-base font-bold">Admission Helpdesk</p>
-            <p className="m-0 mt-1 text-sm text-white/70">
-              Ask us anything about your registration.
+          <div className="card mt-5 bg-navy-soft text-white">
+            <p className="m-0 text-base font-bold">Registration Information</p>
+            <p className="m-0 mt-1 text-sm text-white/75">
+              Have questions about registration? We&rsquo;re here to help.
             </p>
 
-            <div className="mt-4 space-y-3 border-t border-white/15 pt-4 text-sm">
+            <div className="mt-4">
               <a
-                href={`https://wa.me/${HELPDESK.whatsapp.replace(/\D/g, "")}`}
+                href={pesanWhatsapp}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-3 text-white no-underline"
+                className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-navy no-underline transition hover:bg-[#25D366] hover:text-white"
               >
-                <IconBrandWhatsapp
-                  size={18}
-                  className="shrink-0 text-white/60"
-                />
-                <span className="flex-1">WhatsApp</span>
-                <span className="font-semibold">{HELPDESK.whatsapp}</span>
-              </a>
-
-              <a
-                href={`mailto:${HELPDESK.email}`}
-                className="flex items-center gap-3 text-white no-underline"
-              >
-                <IconMail size={18} className="shrink-0 text-white/60" />
-                <span className="flex-1">Email</span>
-                <span className="truncate font-semibold">{HELPDESK.email}</span>
+                <IconBrandWhatsapp size={18} />
+                Chat on WhatsApp
               </a>
             </div>
           </div>

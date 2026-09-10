@@ -60,7 +60,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginTop: 14,
+    marginTop: 10,
   },
   kotak: {
     flexDirection: "row",
@@ -81,7 +81,7 @@ const s = StyleSheet.create({
   garisTtd: {
     borderTopWidth: 1,
     borderTopColor: "#000",
-    marginTop: 40,
+    marginTop: 22,
     paddingTop: 3,
     width: 150,
     textAlign: "center",
