@@ -67,7 +67,7 @@ function Navbar() {
         </nav>
 
         <button
-          className="text-slate-600 md:hidden"
+          className="text-slate-600 transition active:scale-90 md:hidden"
           onClick={() => setOpen((prev) => !prev)}
           aria-label="Menu"
         >
@@ -75,15 +75,25 @@ function Navbar() {
         </button>
       </div>
 
-      {open && (
-        <div className="border-t border-slate-200 bg-white md:hidden">
+      {/* Selalu dirender supaya tingginya bisa dianimasikan. grid-rows 0fr -> 1fr
+          melipat ke tinggi aslinya tanpa perlu mengukur lewat JavaScript. */}
+      <div
+        className={`grid overflow-hidden bg-white transition-all duration-300 ease-out motion-reduce:transition-none md:hidden ${
+          open
+            ? "grid-rows-[1fr] border-t border-slate-200 opacity-100"
+            : "pointer-events-none grid-rows-[0fr] opacity-0"
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="overflow-hidden">
           <div className="container-app flex flex-col gap-1 py-3">
             {links.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
+                tabIndex={open ? 0 : -1}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-3 text-base font-medium text-slate-700 no-underline hover:bg-slate-50"
+                className="rounded-lg px-2 py-3 text-base font-medium text-slate-700 no-underline transition hover:bg-slate-50"
               >
                 {link.label}
               </Link>
@@ -92,7 +102,8 @@ function Navbar() {
             {opened && (
               <button
                 onClick={close}
-                className="flex items-center gap-2 rounded-lg px-2 py-3 text-left text-base font-medium text-red-600"
+                tabIndex={open ? 0 : -1}
+                className="flex items-center gap-2 rounded-lg px-2 py-3 text-left text-base font-medium text-red-600 transition hover:bg-slate-50"
               >
                 <IconLogout size={20} />
                 Close
@@ -100,7 +111,7 @@ function Navbar() {
             )}
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
