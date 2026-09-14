@@ -1,7 +1,7 @@
 import Alert from "@/components/Alert";
 import ReceiptUpload from "@/components/ReceiptUpload";
 import Shell from "@/components/Shell";
-import { daysLeft, formatDate, formatDateTime, rupiah } from "@/utils/format";
+import { daysLeft, formatDate, formatDateTime } from "@/utils/format";
 import { errorMessage, request } from "@/utils/request";
 import { IconCopy, IconFileText } from "@tabler/icons-react";
 import { hasToken } from "@/utils/session";
@@ -197,12 +197,6 @@ function Invoice() {
             </div>
           </div>
         </div>
-      )}
-
-      {invoice.outstanding > 0 && invoice.status === "paid" && (
-        <Alert type="error" title="Underpaid">
-          Short by {rupiah(invoice.outstanding)}. Please contact the school.
-        </Alert>
       )}
 
       {proofRejected && (
