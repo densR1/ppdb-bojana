@@ -44,7 +44,6 @@ function PublicStatus() {
   return (
     <Shell
       title="Check Your Registration"
-      subtitle="No account needed — your phone number and your child's date of birth are enough"
       backTo="/"
     >
       <form onSubmit={submit} className="card space-y-4">
@@ -80,8 +79,7 @@ function PublicStatus() {
       </form>
 
       <Alert type="info">
-        Both fields must match. If you cannot get in, contact the school —
-        there is no password to reset.
+        Both fields must match. If you cannot get in, contact the school.
       </Alert>
     </Shell>
   );
