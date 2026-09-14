@@ -95,7 +95,7 @@ function UploadField({
     <div className="rounded-2xl border border-slate-200 p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="m-0 text-sm font-semibold text-navy">{label}</p>
+          <p className="m-0 text-sm font-semibold text-secondary">{label}</p>
           <p className="m-0 text-xs text-slate-500">
             {note ? `${note} · ` : ""}JPG, PNG, WebP, or PDF · max {MAX_MB} MB
           </p>
@@ -139,7 +139,7 @@ function UploadField({
             )}
 
             <div className="min-w-0 flex-1">
-              <p className="m-0 truncate text-sm font-medium text-navy">
+              <p className="m-0 truncate text-sm font-medium text-secondary">
                 {file.name}
               </p>
               <p className="m-0 text-xs text-slate-500">

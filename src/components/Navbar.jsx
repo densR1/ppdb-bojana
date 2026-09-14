@@ -30,7 +30,7 @@ function Navbar() {
             alt="Bojana Tirta Islamic School"
             className="h-9 w-auto sm:h-11"
           />
-          <span className="hidden text-sm font-semibold leading-tight text-navy sm:block">
+          <span className="hidden text-sm font-semibold leading-tight text-secondary sm:block">
             Bojana Tirta Islamic School
             <span className="block text-xs font-normal text-slate-500">
               New Student Admission

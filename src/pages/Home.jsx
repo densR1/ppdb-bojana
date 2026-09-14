@@ -95,7 +95,7 @@ function Home() {
                 <p className="m-0 mt-3 inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
                   Step {index + 1}
                 </p>
-                <p className="m-0 mt-0.5 font-semibold text-navy">
+                <p className="m-0 mt-0.5 font-semibold text-secondary">
                   {step.title}
                 </p>
                 <p className="m-0 mt-1 text-sm text-slate-500">{step.desc}</p>
@@ -119,7 +119,7 @@ function Home() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
                   <doc.icon size={24} />
                 </span>
-                <p className="m-0 mt-4 font-semibold text-navy">{doc.title}</p>
+                <p className="m-0 mt-4 font-semibold text-secondary">{doc.title}</p>
                 <p className="m-0 mt-1 text-sm text-slate-500">{doc.desc}</p>
               </div>
             ))}

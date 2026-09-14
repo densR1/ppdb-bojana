@@ -58,7 +58,7 @@ function ReceiptCard() {
     <div className="card">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="m-0 text-base font-bold text-navy">
+          <p className="m-0 text-base font-bold text-secondary">
             Receipts &amp; Payments
           </p>
           <p className="m-0 mt-0.5 text-sm text-slate-500">
@@ -81,7 +81,7 @@ function ReceiptCard() {
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="m-0 text-sm font-semibold text-navy">
+                <p className="m-0 text-sm font-semibold text-secondary">
                   {receipt.fee_label}
                 </p>
                 <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">

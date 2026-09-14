@@ -25,7 +25,7 @@ function Shell({ title, subtitle, backTo, narrow = true, children }) {
                   Back
                 </Link>
               )}
-              <h1 className="m-0 text-2xl font-bold text-navy sm:text-3xl">
+              <h1 className="m-0 text-2xl font-bold text-secondary sm:text-3xl">
                 {title}
               </h1>
               {subtitle && (

@@ -79,7 +79,7 @@
   }
 
   .section-title {
-    @apply text-center text-2xl font-bold text-navy sm:text-3xl;
+    @apply text-center text-2xl font-bold text-secondary sm:text-3xl;
   }
 
   .section-subtitle {

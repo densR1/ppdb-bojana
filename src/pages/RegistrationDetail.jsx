@@ -203,7 +203,7 @@ function RegistrationDetail() {
                     <p className="m-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
                       Prospective Student
                     </p>
-                    <p className="m-0 text-xl font-bold text-navy">
+                    <p className="m-0 text-xl font-bold text-secondary">
                       {child?.full_name ?? "-"}
                     </p>
                   </div>
@@ -211,7 +211,7 @@ function RegistrationDetail() {
 
                 <div className="flex flex-wrap items-center gap-2">
                   {registration?.registration_number && (
-                    <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wide text-secondary-dark">
+                    <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wide text-secondary">
                       {registration.registration_number}
                     </span>
                   )}
@@ -229,7 +229,7 @@ function RegistrationDetail() {
                   <p className="m-0 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     {step.kicker ?? "Next step"}
                   </p>
-                  <p className="m-0 mt-2 text-xl font-bold leading-snug text-navy">
+                  <p className="m-0 mt-2 text-xl font-bold leading-snug text-secondary">
                     {step.title}
                   </p>
                   <p className="m-0 mt-2 text-sm leading-relaxed text-slate-600">
@@ -269,7 +269,7 @@ function RegistrationDetail() {
               <div className="card flex items-center gap-3 transition hover:border-secondary hover:shadow-md">
                 <div className="min-w-0 flex-1">
                   <p className="m-0 text-sm text-slate-500">Invoice</p>
-                  <p className="m-0 font-semibold text-navy">
+                  <p className="m-0 font-semibold text-secondary">
                     {invoice.type_label}
                   </p>
                   <p className="m-0 text-xs text-slate-500">
@@ -294,7 +294,7 @@ function RegistrationDetail() {
             <div className="card">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="m-0 text-base font-bold text-navy">
+                  <p className="m-0 text-base font-bold text-secondary">
                     Registration History
                   </p>
                   <p className="m-0 mt-0.5 text-sm text-slate-500">
@@ -342,7 +342,7 @@ function RegistrationDetail() {
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <p className="m-0 text-sm font-semibold text-navy">
+                          <p className="m-0 text-sm font-semibold text-secondary">
                             {item.label}
                           </p>
                           {akhir && (
@@ -383,7 +383,7 @@ function RegistrationDetail() {
                 href={pesanWhatsapp}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-navy no-underline transition hover:bg-[#25D366] hover:text-white"
+                className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-secondary no-underline transition hover:bg-[#25D366] hover:text-white"
               >
                 <IconBrandWhatsapp size={18} />
                 Chat on WhatsApp

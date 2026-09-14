@@ -104,7 +104,7 @@ function Invoice() {
           {invoice.receipt_number && (
             <div className="card">
               <p className="m-0 text-sm text-slate-500">Receipt number</p>
-              <p className="m-0 mt-1 text-base font-semibold tracking-wide text-navy">
+              <p className="m-0 mt-1 text-base font-semibold tracking-wide text-secondary">
                 {invoice.receipt_number}
               </p>
               <p className="m-0 mt-1 text-xs text-slate-500">
@@ -128,7 +128,7 @@ function Invoice() {
 
       {invoice.has_fee_letter && (
         <div className="card">
-          <h2 className="m-0 text-base font-bold text-navy">Payment details</h2>
+          <h2 className="m-0 text-base font-bold text-secondary">Payment details</h2>
           <p className="m-0 mt-1 text-sm leading-relaxed text-slate-600">
             The full breakdown is in the letter the school sent you. Open it for
             the amount and the account to transfer to.
@@ -147,14 +147,14 @@ function Invoice() {
 
       {invoice.status !== "paid" && (
         <div className="card">
-          <h2 className="m-0 mb-3 text-base font-bold text-navy">
+          <h2 className="m-0 mb-3 text-base font-bold text-secondary">
             Transfer to
           </h2>
 
           {instructions.account_number ? (
             <>
               <p className="m-0 text-sm">{instructions.bank}</p>
-              <p className="m-0 text-lg font-semibold tabular-nums text-navy">
+              <p className="m-0 text-lg font-semibold tabular-nums text-secondary">
                 {instructions.account_number}
               </p>
               <p className="m-0 text-sm text-slate-500">
@@ -179,10 +179,10 @@ function Invoice() {
 
           {instructions.payment_reference && (
             <div className="mt-4 rounded-xl border border-secondary/20 bg-secondary/10 p-3 text-sm">
-              <p className="m-0 text-secondary-dark">
+              <p className="m-0 text-secondary">
                 Write this in the transfer note
               </p>
-              <p className="m-0 font-semibold text-navy">
+              <p className="m-0 font-semibold text-secondary">
                 {instructions.payment_reference}
               </p>
             </div>

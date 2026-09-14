@@ -259,7 +259,7 @@ function RegistrationForm() {
 
   const guardianFields = (role, label) => (
     <div className="card space-y-4">
-      <h2 className="m-0 text-base font-bold text-navy">{label}</h2>
+      <h2 className="m-0 text-base font-bold text-secondary">{label}</h2>
 
       <Field label="Full Name" error={fieldErrors[`${role}.name`]?.[0]}>
         <input
@@ -404,7 +404,7 @@ function RegistrationForm() {
       <form onSubmit={submit} className="space-y-5">
         {step === 0 && (
           <div className="card space-y-4">
-            <h2 className="m-0 text-base font-bold text-navy">Child Details</h2>
+            <h2 className="m-0 text-base font-bold text-secondary">Child Details</h2>
 
             <Field
               label="Full Name"
@@ -510,7 +510,7 @@ function RegistrationForm() {
         {step === 3 && (
           <div className="card space-y-4">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="m-0 text-base font-bold text-navy">Siblings</h2>
+              <h2 className="m-0 text-base font-bold text-secondary">Siblings</h2>
               <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">
                 Optional
               </span>
@@ -546,7 +546,7 @@ function RegistrationForm() {
 
         {step === 4 && (
           <div className="card space-y-4">
-            <h2 className="m-0 text-base font-bold text-navy">
+            <h2 className="m-0 text-base font-bold text-secondary">
               Emergency Contact
             </h2>
             <p className="m-0 text-sm text-slate-500">

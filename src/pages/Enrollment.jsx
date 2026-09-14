@@ -142,7 +142,7 @@ function Enrollment() {
   return (
     <Shell title="Re-registration" subtitle={child?.full_name} backTo="/status">
       <div className="card space-y-4">
-        <h2 className="m-0 text-base font-bold text-navy">
+        <h2 className="m-0 text-base font-bold text-secondary">
           Complete your child&apos;s details
         </h2>
         <p className="m-0 text-sm text-slate-500">
@@ -208,7 +208,7 @@ function Enrollment() {
 
       <div className="card space-y-3">
         <div>
-          <h2 className="m-0 text-base font-bold text-navy">Documents</h2>
+          <h2 className="m-0 text-base font-bold text-secondary">Documents</h2>
           <p className="m-0 text-sm text-slate-500">
             Upload each one. You can replace a file any time before submitting.
           </p>
