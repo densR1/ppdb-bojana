@@ -74,7 +74,7 @@ function ReceiptCard() {
         {receipts.map((receipt) => (
           <li
             key={receipt.receipt_number}
-            className="flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 p-3"
+            className="flex flex-wrap items-center gap-3 rounded-xl border border-secondary/20 bg-secondary/10 p-3"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-400">
               <IconReceipt size={20} />

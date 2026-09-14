@@ -178,8 +178,8 @@ function Invoice() {
           )}
 
           {instructions.payment_reference && (
-            <div className="mt-4 rounded-xl bg-slate-50 p-3 text-sm">
-              <p className="m-0 text-slate-500">
+            <div className="mt-4 rounded-xl border border-secondary/20 bg-secondary/10 p-3 text-sm">
+              <p className="m-0 text-secondary-dark">
                 Write this in the transfer note
               </p>
               <p className="m-0 font-semibold text-navy">

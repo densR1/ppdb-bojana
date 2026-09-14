@@ -62,8 +62,8 @@ function UploadField({
 
     if (picked.size > MAX_BYTES) {
       setError(
-          `This file is ${readableSize(picked.size)}. The limit is ${MAX_MB} MB.`,
-        );
+        `This file is ${readableSize(picked.size)}. The limit is ${MAX_MB} MB.`,
+      );
       return;
     }
 
@@ -181,7 +181,7 @@ function UploadField({
       ) : (
         <button
           type="button"
-          className="btn-secondary btn-block mt-3 !py-2.5 !text-sm"
+          className="btn-blue btn-block mt-3 !py-2.5 !text-sm"
           onClick={openPicker}
           disabled={disabled || sending}
         >
@@ -189,8 +189,8 @@ function UploadField({
           {sending
             ? "Uploading..."
             : currentName
-            ? "Upload Again"
-            : "Choose File"}
+              ? "Upload Again"
+              : "Choose File"}
         </button>
       )}
     </div>
