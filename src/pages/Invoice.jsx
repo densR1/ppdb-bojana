@@ -211,13 +211,6 @@ function Invoice() {
         onUploaded={load}
       />
 
-      {unpaid && (
-        <Alert type="info">
-          Uploading a receipt does not mark the invoice as paid. The school
-          still checks the bank statement before confirming your payment.
-        </Alert>
-      )}
-
       {receipts.length > 0 && (
         <Link to="/status" className="block no-underline">
           <button className="btn-primary btn-block">Check Status</button>
