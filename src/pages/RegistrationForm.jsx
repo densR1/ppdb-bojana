@@ -57,6 +57,8 @@ const initial = {
   father: { ...emptyGuardian },
   mother: { ...emptyGuardian },
   siblings: Array.from({ length: 5 }, () => ({ name: "", age: "" })),
+  has_school_sibling: false,
+  sibling_nis: "",
   emergency_name: "",
   emergency_relation: "",
   emergency_address: "",
@@ -244,6 +246,10 @@ function RegistrationForm() {
         data: {
           ...values,
           siblings: values.siblings.filter((item) => item.name.trim()),
+          has_school_sibling: values.has_school_sibling,
+          sibling_nis: values.has_school_sibling
+            ? values.sibling_nis.trim() || null
+            : null,
         },
       });
       saveToken(response.data.data.access_token);
@@ -516,6 +522,40 @@ function RegistrationForm() {
               List them in order, including your child. If your child has no
               siblings, leave this page blank and press Next.
             </p>
+
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-secondary/20 bg-secondary/10 p-3">
+              <input
+                type="checkbox"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-secondary"
+                checked={values.has_school_sibling}
+                onChange={(e) =>
+                  setValues((prev) => ({
+                    ...prev,
+                    has_school_sibling: e.target.checked,
+                    sibling_nis: e.target.checked ? prev.sibling_nis : "",
+                  }))
+                }
+              />
+              <span className="text-sm text-secondary">
+                One of them already studies at Bojana Tirta Islamic School
+              </span>
+            </label>
+
+            {values.has_school_sibling && (
+              <Field label="Their student number (NIS)" hint="Optional.">
+                <input
+                  className="input"
+                  value={values.sibling_nis}
+                  onChange={(e) =>
+                    setValues((prev) => ({
+                      ...prev,
+                      sibling_nis: e.target.value,
+                    }))
+                  }
+                  placeholder="Leave blank if you do not have it"
+                />
+              </Field>
+            )}
 
             {values.siblings.map((item, index) => (
               <div key={index} className="grid gap-3 sm:grid-cols-[2fr,1fr]">
