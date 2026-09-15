@@ -178,6 +178,12 @@ function RegistrationDetail() {
       ? "border-emerald-200 bg-emerald-50/70"
       : "border-primary/40 bg-primary/10";
 
+  const nadaJudul = proofRejected
+    ? "text-red-700"
+    : selesai
+      ? "text-emerald-800"
+      : "text-primary-dark";
+
   const pesanWhatsapp =
     `https://wa.me/${HELPDESK.whatsapp.replace(/\D/g, "")}?text=` +
     encodeURIComponent(
@@ -229,7 +235,9 @@ function RegistrationDetail() {
                   <p className="m-0 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     {step.kicker ?? "Next step"}
                   </p>
-                  <p className="m-0 mt-2 text-xl font-bold leading-snug text-secondary">
+                  <p
+                    className={`m-0 mt-2 text-xl font-bold leading-snug ${nadaJudul}`}
+                  >
                     {step.title}
                   </p>
                   <p className="m-0 mt-2 text-sm leading-relaxed text-slate-600">
