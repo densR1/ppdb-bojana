@@ -58,7 +58,7 @@ const initial = {
   mother: { ...emptyGuardian },
   siblings: Array.from({ length: 5 }, () => ({ name: "", age: "" })),
   has_school_sibling: false,
-  sibling_nis: "",
+  sibling_nisn: "",
   emergency_name: "",
   emergency_relation: "",
   emergency_address: "",
@@ -247,8 +247,8 @@ function RegistrationForm() {
           ...values,
           siblings: values.siblings.filter((item) => item.name.trim()),
           has_school_sibling: values.has_school_sibling,
-          sibling_nis: values.has_school_sibling
-            ? values.sibling_nis.trim() || null
+          sibling_nisn: values.has_school_sibling
+            ? values.sibling_nisn.trim() || null
             : null,
         },
       });
@@ -532,7 +532,7 @@ function RegistrationForm() {
                   setValues((prev) => ({
                     ...prev,
                     has_school_sibling: e.target.checked,
-                    sibling_nis: e.target.checked ? prev.sibling_nis : "",
+                    sibling_nisn: e.target.checked ? prev.sibling_nisn : "",
                   }))
                 }
               />
@@ -542,14 +542,14 @@ function RegistrationForm() {
             </label>
 
             {values.has_school_sibling && (
-              <Field label="Their student number (NIS)" hint="Optional.">
+              <Field label="Their NISN" hint="Optional.">
                 <input
                   className="input"
-                  value={values.sibling_nis}
+                  value={values.sibling_nisn}
                   onChange={(e) =>
                     setValues((prev) => ({
                       ...prev,
-                      sibling_nis: e.target.value,
+                      sibling_nisn: e.target.value,
                     }))
                   }
                   placeholder="Leave blank if you do not have it"
