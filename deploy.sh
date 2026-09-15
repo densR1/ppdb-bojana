@@ -24,7 +24,24 @@ if ! grep -rq "api.bojanaislamicprimary.sch.id" dist/assets/*.js; then
 fi
 
 echo "==> Kirim ke $SERVER"
-rsync -avz --delete dist/ "$SERVER:$TARGET"
+
+# Sambungan ke server kadang putus-nyambung. Dicoba beberapa kali, dan berkas
+# yang sudah separuh terkirim dilanjutkan, bukan diulang dari nol.
+terkirim=0
+for percobaan in 1 2 3 4 5; do
+  if rsync -avz --delete --partial --timeout=30 dist/ "$SERVER:$TARGET"; then
+    terkirim=1
+    break
+  fi
+  echo "    percobaan $percobaan gagal, ulang sebentar lagi..." >&2
+  sleep 5
+done
+
+if [ "$terkirim" -eq 0 ]; then
+  echo "GAGAL: tidak bisa mengirim ke server setelah 5 percobaan." >&2
+  echo "Cek koneksi internet, lalu jalankan lagi." >&2
+  exit 1
+fi
 
 echo "==> Cek hasil"
 LOCAL_BUNDLE=$(ls dist/assets/ | grep -E '^index-.*\.js$' | head -1)
