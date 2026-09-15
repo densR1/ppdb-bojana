@@ -14,6 +14,7 @@ const ANTD = {
   purple: { bg: "#f9f0ff", border: "#d3adf7", text: "#531dab" },
   volcano: { bg: "#fff2e8", border: "#ffbb96", text: "#d4380d" },
   red: { bg: "#fff2f0", border: "#ffccc7", text: "#cf1322" },
+  enrolled: { bg: "#f6ffed", border: "#b7eb8f", text: "#02C76D" },
 };
 
 const STATE_COLOR = {
@@ -27,7 +28,7 @@ const STATE_COLOR = {
   awaiting_school_fee_payment: "orange",
   document_submission: "gold",
   document_review: "purple",
-  enrolled: "green",
+  enrolled: "enrolled",
   absent: "volcano",
   cancelled: "red",
 };
