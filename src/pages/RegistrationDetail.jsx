@@ -229,7 +229,7 @@ function RegistrationDetail() {
                   <p className="m-0 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     {step.kicker ?? "Next step"}
                   </p>
-                  <p className="m-0 mt-2 text-xl font-bold leading-snug text-primary-dark">
+                  <p className="m-0 mt-2 text-xl font-bold leading-snug text-primary">
                     {step.title}
                   </p>
                   <p className="m-0 mt-2 text-sm leading-relaxed text-slate-600">
