@@ -88,11 +88,14 @@ function Enrollment() {
 
       setDocuments(details.data.data.documents);
 
-      await request({
+      const response = await request({
         url: "/v1/ppdb/registration/enrollment/submit",
         method: "post",
       });
-      navigate("/status/invoice");
+      const enrolled =
+        response.data.data.registration.current_state === "enrolled";
+
+      navigate(enrolled ? "/status" : "/status/invoice");
     } catch (err) {
       setFieldErrors(err.response?.data?.data?.errors ?? {});
       setError(errorMessage(err, "Cannot submit yet"));
@@ -244,9 +247,6 @@ function Enrollment() {
         <IconCheck size={20} />
         {submitting ? "Submitting..." : "Submit"}
       </button>
-      <Alert type="info">
-        Once submitted, the school fee invoice is issued and this page closes.
-      </Alert>
     </Shell>
   );
 }
