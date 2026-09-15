@@ -56,9 +56,12 @@ const initial = {
   relationship: "",
   father: { ...emptyGuardian },
   mother: { ...emptyGuardian },
-  siblings: Array.from({ length: 5 }, () => ({ name: "", age: "" })),
-  has_school_sibling: false,
-  sibling_nisn: "",
+  siblings: Array.from({ length: 5 }, () => ({
+    name: "",
+    age: "",
+    studies_here: false,
+    nisn: "",
+  })),
   emergency_name: "",
   emergency_relation: "",
   emergency_address: "",
@@ -246,10 +249,6 @@ function RegistrationForm() {
         data: {
           ...values,
           siblings: values.siblings.filter((item) => item.name.trim()),
-          has_school_sibling: values.has_school_sibling,
-          sibling_nisn: values.has_school_sibling
-            ? values.sibling_nisn.trim() || null
-            : null,
         },
       });
       saveToken(response.data.data.access_token);
@@ -523,59 +522,65 @@ function RegistrationForm() {
               siblings, leave this page blank and press Next.
             </p>
 
-            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-secondary/20 bg-secondary/10 p-3">
-              <input
-                type="checkbox"
-                className="mt-0.5 h-4 w-4 shrink-0 accent-secondary"
-                checked={values.has_school_sibling}
-                onChange={(e) =>
-                  setValues((prev) => ({
-                    ...prev,
-                    has_school_sibling: e.target.checked,
-                    sibling_nisn: e.target.checked ? prev.sibling_nisn : "",
-                  }))
-                }
-              />
-              <span className="text-sm text-secondary">
-                One of them already studies at Bojana Tirta Islamic School
-              </span>
-            </label>
-
-            {values.has_school_sibling && (
-              <Field label="Their NISN" hint="Optional.">
-                <input
-                  className="input"
-                  value={values.sibling_nisn}
-                  onChange={(e) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      sibling_nisn: e.target.value,
-                    }))
-                  }
-                  placeholder="Leave blank if you do not have it"
-                />
-              </Field>
-            )}
-
             {values.siblings.map((item, index) => (
-              <div key={index} className="grid gap-3 sm:grid-cols-[2fr,1fr]">
-                <Field label={`Child ${index + 1}`}>
+              <div
+                key={index}
+                className="rounded-xl border border-slate-200 p-3 sm:p-4"
+              >
+                <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr),7rem]">
+                  <Field label={`Child ${index + 1}`}>
+                    <input
+                      className="input"
+                      value={item.name}
+                      onChange={setSibling(index, "name")}
+                      placeholder="Name"
+                    />
+                  </Field>
+                  <Field label="Age">
+                    <input
+                      className="input"
+                      value={item.age}
+                      onChange={setSibling(index, "age")}
+                      placeholder="Years"
+                      inputMode="numeric"
+                    />
+                  </Field>
+                </div>
+
+                <label className="mt-2 flex cursor-pointer items-center gap-2">
                   <input
-                    className="input"
-                    value={item.name}
-                    onChange={setSibling(index, "name")}
-                    placeholder="Name"
+                    type="checkbox"
+                    className="h-4 w-4 shrink-0 accent-secondary"
+                    checked={item.studies_here}
+                    onChange={(e) =>
+                      setValues((prev) => {
+                        const siblings = [...prev.siblings];
+                        siblings[index] = {
+                          ...siblings[index],
+                          studies_here: e.target.checked,
+                          nisn: e.target.checked ? siblings[index].nisn : "",
+                        };
+                        return { ...prev, siblings };
+                      })
+                    }
                   />
-                </Field>
-                <Field label="Age">
-                  <input
-                    className="input"
-                    value={item.age}
-                    onChange={setSibling(index, "age")}
-                    placeholder="Years"
-                    inputMode="numeric"
-                  />
-                </Field>
+                  <span className="text-sm text-slate-600">
+                    Studies at Bojana Tirta Islamic School
+                  </span>
+                </label>
+
+                {item.studies_here && (
+                  <div className="mt-2 sm:max-w-xs">
+                    <Field label="Their NISN" hint="Optional.">
+                      <input
+                        className="input"
+                        value={item.nisn}
+                        onChange={setSibling(index, "nisn")}
+                        placeholder="Leave blank if you do not have it"
+                      />
+                    </Field>
+                  </div>
+                )}
               </div>
             ))}
           </div>
