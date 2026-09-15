@@ -24,7 +24,7 @@ function ReceiptUpload({ receipts, canUpload, onUploaded }) {
 
   return (
     <div className="card">
-      <p className="m-0 text-sm font-semibold text-slate-500">
+      <p className="m-0 text-sm font-semibold text-secondary">
         Transfer receipt
       </p>
 
@@ -33,9 +33,9 @@ function ReceiptUpload({ receipts, canUpload, onUploaded }) {
           {receipts.map((receipt) => (
             <li
               key={receipt.id}
-              className="flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-sm"
+              className="flex items-center gap-2 rounded-xl border border-secondary/20 bg-secondary/10 p-3 text-sm"
             >
-              <IconPaperclip size={18} className="shrink-0 text-slate-400" />
+              <IconPaperclip size={18} className="shrink-0 text-secondary" />
               <span className="min-w-0 flex-1 truncate">
                 {receipt.original_name}
               </span>
@@ -62,10 +62,7 @@ function ReceiptUpload({ receipts, canUpload, onUploaded }) {
 
       {canUpload && (
         <div className="mt-4">
-          <UploadField
-            label="Upload your transfer receipt"
-            onSend={send}
-          />
+          <UploadField label="Upload your transfer receipt" onSend={send} />
         </div>
       )}
     </div>
