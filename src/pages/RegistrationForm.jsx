@@ -394,17 +394,12 @@ function RegistrationForm() {
         ))}
       </ol>
 
-      {step === 0 && (
-        <Alert type="info" title="Your answers are saved automatically">
-          If you get interrupted, reopen this page on the same device and your
-          answers will still be here.
-        </Alert>
-      )}
-
       <form onSubmit={submit} className="space-y-5">
         {step === 0 && (
           <div className="card space-y-4">
-            <h2 className="m-0 text-base font-bold text-secondary">Child Details</h2>
+            <h2 className="m-0 text-base font-bold text-secondary">
+              Child Details
+            </h2>
 
             <Field
               label="Full Name"
@@ -510,7 +505,9 @@ function RegistrationForm() {
         {step === 3 && (
           <div className="card space-y-4">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="m-0 text-base font-bold text-secondary">Siblings</h2>
+              <h2 className="m-0 text-base font-bold text-secondary">
+                Siblings
+              </h2>
               <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">
                 Optional
               </span>
