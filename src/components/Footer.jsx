@@ -37,7 +37,7 @@ const SOCIALS = [
 function Footer() {
   return (
     <footer className="mt-16 bg-navy-soft text-white">
-      <div className="container-app grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container-app grid gap-8 py-8 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2 lg:col-span-1">
           <img
             src="/images/borderless-logo.png"
@@ -112,6 +112,14 @@ function Footer() {
             </li>
           </ul>
 
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.442101607488!2d106.87408011074042!3d-6.2052669937566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f51eca29e14b%3A0x4c636ed319acafc0!2sBojana%20Tirta%20Islamic%20School!5e0!3m2!1sid!2sid!4v1786597029204!5m2!1sid!2sid"
+            title="Bojana Tirta Islamic School — Jl. Bujana Tirta Raya No.3A, Pisangan Timur, Kec. Pulo Gadung, Jakarta Timur 13230"
+            className="mt-4 h-28 w-full rounded-xl border-0"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
 
           <div className="mt-4 flex gap-3">
             {SOCIALS.map(({ icon: Icon, label, url }) => (
@@ -129,17 +137,6 @@ function Footer() {
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="container-app pb-12">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.442101607488!2d106.87408011074042!3d-6.2052669937566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f51eca29e14b%3A0x4c636ed319acafc0!2sBojana%20Tirta%20Islamic%20School!5e0!3m2!1sid!2sid!4v1786597029204!5m2!1sid!2sid"
-          title="Bojana Tirta Islamic School — Jl. Bujana Tirta Raya No.3A, Pisangan Timur, Kec. Pulo Gadung, Jakarta Timur 13230"
-          className="h-72 w-full rounded-2xl border-0 sm:h-80"
-          loading="lazy"
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
       </div>
 
       <div className="border-t border-white/10 py-5 text-center text-xs text-white/75">
