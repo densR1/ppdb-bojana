@@ -201,7 +201,7 @@ function Invoice() {
 
       {proofRejected && (
         <Alert type="error" title="Your payment proof was rejected">
-          {invoice.proof_reject_reason} Please upload a new receipt below.
+          {invoice.proof_reject_reason}
         </Alert>
       )}
 

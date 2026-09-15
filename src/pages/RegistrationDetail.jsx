@@ -156,12 +156,7 @@ function RegistrationDetail() {
     ? {
         tone: "danger",
         title: "Your payment proof was rejected",
-        body: [
-          invoice?.proof_reject_reason,
-          "Please upload a new receipt on the invoice page.",
-        ]
-          .filter(Boolean)
-          .join(" "),
+        body: invoice?.proof_reject_reason,
         action: { to: "/status/invoice", label: "View Invoice" },
       }
     : invoice?.awaiting_proof_review
