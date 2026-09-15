@@ -11,8 +11,7 @@ import {
   IconPhoto,
   IconSchool,
   IconUsers,
-} 
-from "@tabler/icons-react";
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 const STEPS = [
@@ -21,7 +20,11 @@ const STEPS = [
     title: "Registration",
     desc: "Fill in your child's details",
   },
-  { icon: IconSchool, title: "Psychotest", desc: "Schedule sent to your email" },
+  {
+    icon: IconSchool,
+    title: "Psychotest",
+    desc: "Schedule sent to your email",
+  },
   { icon: IconClipboardCheck, title: "Result", desc: "Announced by email" },
   {
     icon: IconFileText,
@@ -72,11 +75,11 @@ function Home() {
         )}
 
         <section>
-          <h2 className="section  -title">Simple Admission Process</h2>
+          <h2 className="section-title">Admission Process</h2>
           <p className="section-subtitle">
-            Four steps from applying to becoming part of the BTIS family
+            Complete your admission in four simple steps and take the first step
+            toward your future at BTIS.
           </p>
-
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, index) => (
               <div key={step.title} className="relative text-center">
@@ -119,7 +122,9 @@ function Home() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
                   <doc.icon size={24} />
                 </span>
-                <p className="m-0 mt-4 font-semibold text-secondary">{doc.title}</p>
+                <p className="m-0 mt-4 font-semibold text-secondary">
+                  {doc.title}
+                </p>
                 <p className="m-0 mt-1 text-sm text-slate-500">{doc.desc}</p>
               </div>
             ))}
