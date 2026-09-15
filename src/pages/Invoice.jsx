@@ -8,6 +8,25 @@ import { hasToken } from "@/utils/session";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
+const fetchLetter = async () => {
+  const response = await request({
+    url: "/v1/ppdb/registration/fee-letter",
+    responseType: "blob",
+  });
+
+  return response.data;
+};
+
+const buildLetter = async () => {
+  const [response, { pdf }, { default: LetterPdf }] = await Promise.all([
+    request({ url: "/v1/ppdb/registration/letter" }),
+    import("@react-pdf/renderer"),
+    import("@/components/LetterPdf"),
+  ]);
+
+  return pdf(<LetterPdf data={response.data.data.letter} />).toBlob();
+};
+
 function Invoice() {
   const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,12 +54,11 @@ function Invoice() {
     setError("");
 
     try {
-      const response = await request({
-        url: "/v1/ppdb/registration/fee-letter",
-        responseType: "blob",
-      });
+      const blob = await (invoice.letter_is_generated
+        ? buildLetter()
+        : fetchLetter());
 
-      const url = URL.createObjectURL(response.data);
+      const url = URL.createObjectURL(blob);
       window.open(url, "_blank", "noopener");
       // Dibiarkan hidup sebentar supaya tab baru sempat memuatnya.
       setTimeout(() => URL.revokeObjectURL(url), 60000);
