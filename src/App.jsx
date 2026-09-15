@@ -1,3 +1,4 @@
+import ScrollToTop from "@/components/ScrollToTop";
 import Enrollment from "@/pages/Enrollment";
 import Home from "@/pages/Home";
 import Invoice from "@/pages/Invoice";
@@ -9,6 +10,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegistrationForm />} />
