@@ -152,6 +152,18 @@ function RegistrationDetail() {
   const proofRejected =
     invoice?.status === "unpaid" && Boolean(invoice?.proof_rejected_at);
 
+  // SEMENTARA, untuk acara pendaftaran minggu ini. Pada periode tanpa
+  // psikotest, langkah orang tua berhenti setelah pembayaran dikonfirmasi:
+  // jadwalnya diatur manual di luar sistem. Periode tanpa psikotest dikenali
+  // dari riwayatnya yang tidak pernah melewati tahap psikotest, jadi tidak ada
+  // yang berubah di API. Hapus blok ini beserta pemakaiannya di bawah untuk
+  // mengembalikan tombol daftar ulang.
+  const jadwalManual =
+    registration?.current_state === "document_submission" &&
+    !timeline.some((item) =>
+      ["scheduled", "psychotest_completed", "passed"].includes(item.state),
+    );
+
   const step = proofRejected
     ? {
         tone: "danger",
@@ -165,7 +177,12 @@ function RegistrationDetail() {
           body: "Your receipt is in. The school matches it against the bank statement before confirming, so this can take a day or two.",
           action: { to: "/status/invoice", label: "View Invoice" },
         }
-      : NEXT_STEP[registration?.current_state];
+      : jadwalManual
+        ? {
+            title: "Waiting for your psychotest schedule",
+            body: "We have received your payment. The school will contact you about the psychotest schedule.",
+          }
+        : NEXT_STEP[registration?.current_state];
 
   const nadaSorot = proofRejected
     ? "border-red-200 bg-red-50"
