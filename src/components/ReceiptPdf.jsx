@@ -140,6 +140,13 @@ function Lembar({ data }) {
         )}
       </View>
 
+      {data.note ? (
+        <View style={s.bagian}>
+          <Text style={s.tebal}>Note</Text>
+          <Text style={{ marginTop: 2 }}>{data.note}</Text>
+        </View>
+      ) : null}
+
       <View style={s.kaki}>
         <View style={s.kotak}>
           <Text style={s.tebal}>Amount</Text>
