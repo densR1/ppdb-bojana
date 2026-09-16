@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 function HomeCta({ isOpen, period }) {
   return (
-    <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-secondary via-secondary to-navy px-6 py-14 text-center text-white sm:px-12 sm:py-16">
+    <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-secondary via-secondary to-navy px-5 py-10 text-center text-white sm:px-12 sm:py-16">
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full border-[3rem] border-white/[0.07]"
+        className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full border-[2rem] border-white/[0.07] sm:-right-24 sm:-top-28 sm:h-72 sm:w-72 sm:border-[3rem]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full border-[3.5rem] border-white/[0.07]"
+        className="pointer-events-none absolute -bottom-20 -left-16 h-52 w-52 rounded-full border-[2.25rem] border-white/[0.07] sm:-bottom-32 sm:-left-24 sm:h-80 sm:w-80 sm:border-[3.5rem]"
       />
 
       <div className="relative">
@@ -30,9 +30,9 @@ function HomeCta({ isOpen, period }) {
             : "Registration is closed at the moment. Please check back later or contact the school."}
         </p>
 
-        <div className="mt-8 flex justify-center">
-          <Link to="/register" className="no-underline">
-            <button className="btn-primary !px-10" disabled={!isOpen}>
+        <div className="mt-7 flex justify-center sm:mt-8">
+          <Link to="/register" className="w-full no-underline sm:w-auto">
+            <button className="btn-primary sm:!px-10" disabled={!isOpen}>
               Register Now
             </button>
           </Link>

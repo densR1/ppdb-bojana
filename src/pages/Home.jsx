@@ -117,10 +117,10 @@ function Home() {
             {DOCUMENTS.map((doc) => (
               <div
                 key={doc.title}
-                className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-primary hover:shadow-lg"
+                className="group rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-lg"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
-                  <doc.icon size={24} />
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-inset ring-primary/20 transition group-hover:bg-primary group-hover:text-white group-hover:ring-primary">
+                  <doc.icon size={26} />
                 </span>
                 <p className="m-0 mt-4 font-semibold text-secondary">
                   {doc.title}
