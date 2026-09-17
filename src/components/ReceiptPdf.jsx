@@ -102,10 +102,19 @@ const s = StyleSheet.create({
     objectFit: "contain",
     opacity: 0.85,
   },
-  pengesahan: { flexDirection: "row", alignItems: "center" },
-  logoSekolah: { width: 58, height: 47, objectFit: "contain", marginRight: 2 },
-  ttd: { width: 100, alignItems: "center" },
-  tandaTangan: { width: 80, height: 66, objectFit: "contain", marginTop: 2 },
+  ttd: { width: 120, alignItems: "center" },
+  tumpuk: { width: 80, height: 66, marginTop: 2, position: "relative" },
+  tandaTangan: { width: 80, height: 66, objectFit: "contain" },
+  // Logo sekolah menimpa ujung kanan tanda tangan, seperti cap.
+  logoSekolah: {
+    position: "absolute",
+    top: 10,
+    left: 44,
+    width: 58,
+    height: 47,
+    objectFit: "contain",
+    opacity: 0.85,
+  },
   garisTtd: {
     borderTopWidth: 1,
     borderTopColor: "#000",
@@ -194,16 +203,16 @@ function Lembar({ data }) {
           <Text style={s.nominal}>{rupiah(data.amount)}</Text>
         </View>
 
-        <View style={s.pengesahan}>
-          <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
-          <View style={s.ttd}>
-            <Text>
-              {data.place},{" "}
-              {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
-            </Text>
+        <View style={s.ttd}>
+          <Text>
+            {data.place},{" "}
+            {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
+          </Text>
+          <View style={s.tumpuk}>
             <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
-            <Text style={s.garisTtd}>{data.signatory || " "}</Text>
+            <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
           </View>
+          <Text style={s.garisTtd}>{data.signatory || " "}</Text>
         </View>
       </View>
     </View>
