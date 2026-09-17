@@ -8,6 +8,9 @@ import {
 } from "@react-pdf/renderer";
 import dayjs from "dayjs";
 
+// Rincian lebih dari ini pindah ke kolom kanan supaya kwitansi tetap satu halaman.
+const POS_PER_KOLOM = 5;
+
 const rupiah = (nilai) =>
   `Rp ${new Intl.NumberFormat("id-ID").format(nilai ?? 0)}`;
 
@@ -55,6 +58,8 @@ const s = StyleSheet.create({
   bagian: { marginTop: 12 },
   tebal: { fontFamily: "Helvetica-Bold" },
   pos: { marginTop: 2, marginLeft: 10 },
+  kolomPos: { flexDirection: "row" },
+  kolom: { width: 220 },
 
   kaki: {
     flexDirection: "row",
@@ -71,19 +76,19 @@ const s = StyleSheet.create({
     paddingVertical: 6,
   },
   nominal: { fontSize: 13, fontFamily: "Helvetica-Bold", marginLeft: 12 },
-  ttd: { alignItems: "center", width: 180 },
+  ttd: { alignItems: "center", width: 190 },
   pengesahan: { flexDirection: "row", alignItems: "center", marginTop: 2 },
+  logoSekolah: { width: 62, height: 50, objectFit: "contain", marginRight: 8 },
   tumpuk: { width: 70, height: 60, position: "relative" },
   stempel: { width: 70, height: 60, objectFit: "contain" },
   tandaTangan: {
     position: "absolute",
-    top: 9,
-    left: 10,
-    width: 50,
-    height: 42,
+    top: 0,
+    left: 0,
+    width: 70,
+    height: 58,
     objectFit: "contain",
   },
-  logoSekolah: { width: 46, height: 38, objectFit: "contain", marginLeft: 8 },
   garisTtd: {
     borderTopWidth: 1,
     borderTopColor: "#000",
@@ -136,12 +141,24 @@ function Lembar({ data }) {
             <Text style={{ marginTop: 3 }}>
               This payment includes the following:
             </Text>
-            {data.covers.map((pos, i) => (
-              <Text key={pos.label} style={s.pos}>
-                {i + 1}. {pos.label}
-                {pos.amount > 0 ? ` : ${rupiah(pos.amount)}` : ""}
-              </Text>
-            ))}
+            <View style={s.kolomPos}>
+              {[
+                data.covers.slice(0, POS_PER_KOLOM),
+                data.covers.slice(POS_PER_KOLOM),
+              ].map(
+                (kolom, k) =>
+                  kolom.length > 0 && (
+                    <View key={k} style={s.kolom}>
+                      {kolom.map((pos, i) => (
+                        <Text key={pos.label} style={s.pos}>
+                          {k * POS_PER_KOLOM + i + 1}. {pos.label}
+                          {pos.amount > 0 ? ` : ${rupiah(pos.amount)}` : ""}
+                        </Text>
+                      ))}
+                    </View>
+                  ),
+              )}
+            </View>
           </View>
         )}
       </View>
@@ -165,11 +182,11 @@ function Lembar({ data }) {
             {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
           </Text>
           <View style={s.pengesahan}>
+            <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
             <View style={s.tumpuk}>
               <Image style={s.stempel} src="/images/lunas.png" />
               <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
             </View>
-            <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
           </View>
           <Text style={s.garisTtd}>{data.signatory || " "}</Text>
         </View>
