@@ -90,24 +90,23 @@ const s = StyleSheet.create({
     paddingVertical: 6,
   },
   nominal: { fontSize: 13, fontFamily: "Helvetica-Bold", marginLeft: 12 },
-  // Logo sekolah mengambil 30% lebar, stempel dan tanda tangan sisanya.
-  pengesahan: { flexDirection: "row", alignItems: "center", width: 210 },
-  sisiLogo: { width: "30%", alignItems: "center" },
-  logoSekolah: { width: 58, height: 47, objectFit: "contain" },
-  ttd: { width: "70%", alignItems: "center" },
-  tumpuk: { width: 80, height: 68, position: "relative", marginTop: 2 },
-  tandaTangan: { width: 80, height: 66, objectFit: "contain" },
-  // Cap ditumpuk setelah tanda tangan, agak miring dan tembus seperti tinta.
-  stempel: {
+  // Cap LUNAS di ruang kosong sebelah kanan rincian, agak miring seperti tinta.
+  // Setinggi cap, supaya kwitansi tanpa rincian tidak menimpakan cap ke tanda tangan.
+  bagianBiaya: { position: "relative", minHeight: 80 },
+  capLunas: {
     position: "absolute",
-    top: 8,
-    left: 14,
-    width: 70,
-    height: 60,
+    top: -4,
+    right: 20,
+    width: 98,
+    height: 84,
     objectFit: "contain",
     opacity: 0.85,
     transform: "rotate(-8deg)",
   },
+  pengesahan: { flexDirection: "row", alignItems: "center" },
+  logoSekolah: { width: 58, height: 47, objectFit: "contain", marginRight: 2 },
+  ttd: { width: 100, alignItems: "center" },
+  tandaTangan: { width: 80, height: 66, objectFit: "contain", marginTop: 2 },
   garisTtd: {
     borderTopWidth: 1,
     borderTopColor: "#000",
@@ -153,7 +152,7 @@ function Lembar({ data }) {
         <Text style={[s.isi, s.terbilang]}>{data.amount_in_words}</Text>
       </View>
 
-      <View style={s.bagian}>
+      <View style={[s.bagian, s.bagianBiaya]}>
         <Text style={s.tebal}>{data.fee_label}</Text>
         {data.covers?.length > 0 && (
           <View>
@@ -180,6 +179,7 @@ function Lembar({ data }) {
             </View>
           </View>
         )}
+        <Image style={s.capLunas} src="/images/lunas.png" />
       </View>
 
       {data.note ? (
@@ -196,18 +196,13 @@ function Lembar({ data }) {
         </View>
 
         <View style={s.pengesahan}>
-          <View style={s.sisiLogo}>
-            <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
-          </View>
+          <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
           <View style={s.ttd}>
             <Text>
               {data.place},{" "}
               {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
             </Text>
-            <View style={s.tumpuk}>
-              <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
-              <Image style={s.stempel} src="/images/lunas.png" />
-            </View>
+            <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
             <Text style={s.garisTtd}>{data.signatory || " "}</Text>
           </View>
         </View>
