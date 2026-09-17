@@ -1,5 +1,6 @@
 import {
   Document,
+  Font,
   Image,
   Page,
   StyleSheet,
@@ -7,6 +8,12 @@ import {
   View,
 } from "@react-pdf/renderer";
 import dayjs from "dayjs";
+
+// Helvetica bawaan tidak punya ketebalan semi-bold.
+Font.register({
+  family: "Poppins SemiBold",
+  src: "/font/Poppins/Poppins-SemiBold.ttf",
+});
 
 // Rincian lebih dari ini pindah ke kolom kanan supaya kwitansi tetap satu halaman.
 const POS_PER_KOLOM = 5;
@@ -57,7 +64,14 @@ const s = StyleSheet.create({
 
   bagian: { marginTop: 12 },
   tebal: { fontFamily: "Helvetica-Bold" },
-  pos: { marginTop: 2, marginLeft: 10 },
+  // Poppins berjarak baris lebih lega dari Helvetica; dirapatkan supaya tetap satu halaman.
+  pos: {
+    marginTop: 1,
+    marginLeft: 10,
+    fontFamily: "Poppins SemiBold",
+    fontSize: 8.5,
+    lineHeight: 1.25,
+  },
   kolomPos: { flexDirection: "row" },
   kolom: { width: 220 },
 
@@ -82,14 +96,17 @@ const s = StyleSheet.create({
   logoSekolah: { width: 58, height: 47, objectFit: "contain" },
   ttd: { width: "70%", alignItems: "center" },
   tumpuk: { width: 80, height: 68, position: "relative", marginTop: 2 },
-  stempel: { width: 80, height: 68, objectFit: "contain" },
-  tandaTangan: {
+  tandaTangan: { width: 80, height: 66, objectFit: "contain" },
+  // Cap ditumpuk setelah tanda tangan, agak miring dan tembus seperti tinta.
+  stempel: {
     position: "absolute",
-    top: 0,
-    left: 0,
-    width: 80,
-    height: 66,
+    top: 8,
+    left: 14,
+    width: 70,
+    height: 60,
     objectFit: "contain",
+    opacity: 0.85,
+    transform: "rotate(-8deg)",
   },
   garisTtd: {
     borderTopWidth: 1,
@@ -188,8 +205,8 @@ function Lembar({ data }) {
               {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
             </Text>
             <View style={s.tumpuk}>
-              <Image style={s.stempel} src="/images/lunas.png" />
               <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
+              <Image style={s.stempel} src="/images/lunas.png" />
             </View>
             <Text style={s.garisTtd}>{data.signatory || " "}</Text>
           </View>
