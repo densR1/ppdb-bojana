@@ -76,17 +76,19 @@ const s = StyleSheet.create({
     paddingVertical: 6,
   },
   nominal: { fontSize: 13, fontFamily: "Helvetica-Bold", marginLeft: 12 },
-  ttd: { alignItems: "center", width: 190 },
-  pengesahan: { flexDirection: "row", alignItems: "center", marginTop: 2 },
-  logoSekolah: { width: 62, height: 50, objectFit: "contain", marginRight: 8 },
-  tumpuk: { width: 70, height: 60, position: "relative" },
-  stempel: { width: 70, height: 60, objectFit: "contain" },
+  // Logo sekolah mengambil 30% lebar, stempel dan tanda tangan sisanya.
+  pengesahan: { flexDirection: "row", alignItems: "center", width: 210 },
+  sisiLogo: { width: "30%", alignItems: "center" },
+  logoSekolah: { width: 58, height: 47, objectFit: "contain" },
+  ttd: { width: "70%", alignItems: "center" },
+  tumpuk: { width: 80, height: 68, position: "relative", marginTop: 2 },
+  stempel: { width: 80, height: 68, objectFit: "contain" },
   tandaTangan: {
     position: "absolute",
     top: 0,
     left: 0,
-    width: 70,
-    height: 58,
+    width: 80,
+    height: 66,
     objectFit: "contain",
   },
   garisTtd: {
@@ -94,7 +96,7 @@ const s = StyleSheet.create({
     borderTopColor: "#000",
     marginTop: 2,
     paddingTop: 3,
-    width: 150,
+    width: "95%",
     textAlign: "center",
   },
 });
@@ -176,19 +178,21 @@ function Lembar({ data }) {
           <Text style={s.nominal}>{rupiah(data.amount)}</Text>
         </View>
 
-        <View style={s.ttd}>
-          <Text>
-            {data.place},{" "}
-            {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
-          </Text>
-          <View style={s.pengesahan}>
+        <View style={s.pengesahan}>
+          <View style={s.sisiLogo}>
             <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
+          </View>
+          <View style={s.ttd}>
+            <Text>
+              {data.place},{" "}
+              {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
+            </Text>
             <View style={s.tumpuk}>
               <Image style={s.stempel} src="/images/lunas.png" />
               <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
             </View>
+            <Text style={s.garisTtd}>{data.signatory || " "}</Text>
           </View>
-          <Text style={s.garisTtd}>{data.signatory || " "}</Text>
         </View>
       </View>
     </View>
