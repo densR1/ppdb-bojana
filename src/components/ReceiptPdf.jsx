@@ -71,17 +71,23 @@ const s = StyleSheet.create({
     paddingVertical: 6,
   },
   nominal: { fontSize: 13, fontFamily: "Helvetica-Bold", marginLeft: 12 },
-  ttd: { alignItems: "center", width: 165 },
-  lunas: {
-    fontSize: 14,
-    fontFamily: "Helvetica-Bold",
-    color: "#c00000",
-    letterSpacing: 2,
+  ttd: { alignItems: "center", width: 180 },
+  pengesahan: { flexDirection: "row", alignItems: "center", marginTop: 2 },
+  tumpuk: { width: 70, height: 60, position: "relative" },
+  stempel: { width: 70, height: 60, objectFit: "contain" },
+  tandaTangan: {
+    position: "absolute",
+    top: 9,
+    left: 10,
+    width: 50,
+    height: 42,
+    objectFit: "contain",
   },
+  logoSekolah: { width: 46, height: 38, objectFit: "contain", marginLeft: 8 },
   garisTtd: {
     borderTopWidth: 1,
     borderTopColor: "#000",
-    marginTop: 22,
+    marginTop: 2,
     paddingTop: 3,
     width: 150,
     textAlign: "center",
@@ -154,11 +160,17 @@ function Lembar({ data }) {
         </View>
 
         <View style={s.ttd}>
-          <Text style={s.lunas}>LUNAS</Text>
-          <Text style={{ marginTop: 3 }}>
+          <Text>
             {data.place},{" "}
             {data.issued_at ? dayjs(data.issued_at).format("DD/MM/YYYY") : "-"}
           </Text>
+          <View style={s.pengesahan}>
+            <View style={s.tumpuk}>
+              <Image style={s.stempel} src="/images/lunas.png" />
+              <Image style={s.tandaTangan} src="/images/ttd-nurul.png" />
+            </View>
+            <Image style={s.logoSekolah} src="/images/logo-primer-bojana.png" />
+          </View>
           <Text style={s.garisTtd}>{data.signatory || " "}</Text>
         </View>
       </View>
