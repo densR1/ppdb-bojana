@@ -90,18 +90,17 @@ const s = StyleSheet.create({
     paddingVertical: 6,
   },
   nominal: { fontSize: 13, fontFamily: "Helvetica-Bold", marginLeft: 12 },
-  // Cap LUNAS di ruang kosong sebelah kanan rincian, agak miring seperti tinta.
+  // Cap LUNAS di ruang kosong sebelah kanan rincian.
   // Setinggi cap, supaya kwitansi tanpa rincian tidak menimpakan cap ke tanda tangan.
   bagianBiaya: { position: "relative", minHeight: 80 },
   capLunas: {
     position: "absolute",
-    top: -4,
+    top: 4,
     right: 20,
     width: 98,
     height: 84,
     objectFit: "contain",
     opacity: 0.85,
-    transform: "rotate(-8deg)",
   },
   pengesahan: { flexDirection: "row", alignItems: "center" },
   logoSekolah: { width: 58, height: 47, objectFit: "contain", marginRight: 2 },
