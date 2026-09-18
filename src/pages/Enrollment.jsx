@@ -9,15 +9,6 @@ import { IconCheck } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const LIVES_WITH = [
-  "Both Parents",
-  "Father",
-  "Mother",
-  "Grandparents",
-  "Guardian",
-  "Boarding House",
-];
-
 function Enrollment() {
   const navigate = useNavigate();
 
@@ -78,12 +69,7 @@ function Enrollment() {
       const details = await request({
         url: "/v1/ppdb/registration/enrollment",
         method: "post",
-        data: {
-          nik: child.nik,
-          gender: child.gender,
-          lives_with: child.lives_with,
-          parent_expectation: child.parent_expectation,
-        },
+        data: { parent_expectation: child.parent_expectation },
       });
 
       setDocuments(details.data.data.documents);
@@ -144,71 +130,6 @@ function Enrollment() {
 
   return (
     <Shell title="Re-registration" subtitle={child?.full_name} backTo="/status">
-      <div className="card space-y-4">
-        <h2 className="m-0 text-base font-bold text-secondary">
-          Complete your child&apos;s details
-        </h2>
-        <p className="m-0 text-sm text-slate-500">
-          Only what the registration form did not ask for yet.
-        </p>
-
-        <Field
-          label="Child's NIK"
-          hint="16 digits, as printed on the family card"
-          error={fieldErrors.nik?.[0]}
-        >
-          <input
-            className="input"
-            value={child?.nik ?? ""}
-            onChange={set("nik")}
-            inputMode="numeric"
-            maxLength={16}
-            required
-          />
-        </Field>
-
-        <Field label="Gender" error={fieldErrors.gender?.[0]}>
-          <select
-            className="input"
-            value={child?.gender ?? ""}
-            onChange={set("gender")}
-            required
-          >
-            <option value="">Select</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </Field>
-
-        <Field label="Lives With" error={fieldErrors.lives_with?.[0]}>
-          <select
-            className="input"
-            value={child?.lives_with ?? ""}
-            onChange={set("lives_with")}
-            required
-          >
-            <option value="">Select</option>
-            {LIVES_WITH.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </Field>
-
-        <Field
-          label="Hopes and Suggestions for Bojana Tirta Islamic School"
-          hint="Optional. Tell us what you would like the school to apply."
-        >
-          <textarea
-            className="input"
-            rows={3}
-            value={child?.parent_expectation ?? ""}
-            onChange={set("parent_expectation")}
-          />
-        </Field>
-      </div>
-
       <div className="card space-y-3">
         <div>
           <h2 className="m-0 text-base font-bold text-secondary">Documents</h2>
@@ -229,6 +150,20 @@ function Enrollment() {
             onSend={sendDocument(document.type)}
           />
         ))}
+      </div>
+
+      <div className="card">
+        <Field
+          label="Hopes and Suggestions for Bojana Tirta Islamic School"
+          hint="Optional. Tell us what you would like the school to apply."
+        >
+          <textarea
+            className="input"
+            rows={3}
+            value={child?.parent_expectation ?? ""}
+            onChange={set("parent_expectation")}
+          />
+        </Field>
       </div>
 
       {error && <Alert type="error">{error}</Alert>}

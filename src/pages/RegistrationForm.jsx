@@ -3,7 +3,7 @@ import Field from "@/components/Field";
 import Shell from "@/components/Shell";
 import { errorMessage, request } from "@/utils/request";
 import { saveToken } from "@/utils/session";
-import { emailError, phoneError } from "@/utils/validate";
+import { emailError, nikError, phoneError } from "@/utils/validate";
 import { IconCheck } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -33,6 +33,15 @@ const INCOME = [
 
 const RELATIONSHIP = ["Biological Child", "Adopted Child", "Other"];
 
+const LIVES_WITH = [
+  "Both Parents",
+  "Father",
+  "Mother",
+  "Grandparents",
+  "Guardian",
+  "Boarding House",
+];
+
 const emptyGuardian = {
   name: "",
   place_of_birth: "",
@@ -52,7 +61,10 @@ const initial = {
   nisn: "",
   place_of_birth: "",
   date_of_birth: "",
+  gender: "",
+  nik: "",
   address: "",
+  lives_with: "",
   relationship: "",
   father: { ...emptyGuardian },
   mother: { ...emptyGuardian },
@@ -86,7 +98,10 @@ const REQUIRED = [
     "nisn",
     "place_of_birth",
     "date_of_birth",
+    "gender",
+    "nik",
     "address",
+    "lives_with",
     "relationship",
   ],
   Object.keys(emptyGuardian).map((key) => `father.${key}`),
@@ -106,6 +121,7 @@ const pick = (obj, path) =>
 // Field yang punya aturan format, dikelompokkan per langkah supaya tombol
 // Next ikut memeriksa tanpa harus menunggu server.
 const FORMAT_RULES = {
+  0: { nik: nikError },
   1: { "father.phone": phoneError, "father.email": emailError },
   2: { "mother.phone": phoneError, "mother.email": emailError },
   4: { emergency_phone: phoneError },
@@ -453,6 +469,21 @@ function RegistrationForm() {
               />
             </Field>
 
+            <Field
+              label="Child's NIK"
+              hint="16 digits, as printed on the family card"
+              error={fieldErrors.nik?.[0]}
+            >
+              <input
+                className="input"
+                value={values.nik}
+                onChange={set("nik")}
+                inputMode="numeric"
+                maxLength={16}
+                required
+              />
+            </Field>
+
             <Field label="Place of Birth">
               <input
                 className="input"
@@ -476,6 +507,19 @@ function RegistrationForm() {
               />
             </Field>
 
+            <Field label="Gender" error={fieldErrors.gender?.[0]}>
+              <select
+                className="input"
+                value={values.gender}
+                onChange={set("gender")}
+                required
+              >
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </Field>
+
             <Field label="Home Address">
               <textarea
                 className="input"
@@ -484,6 +528,22 @@ function RegistrationForm() {
                 onChange={set("address")}
                 required
               />
+            </Field>
+
+            <Field label="Lives With" error={fieldErrors.lives_with?.[0]}>
+              <select
+                className="input"
+                value={values.lives_with}
+                onChange={set("lives_with")}
+                required
+              >
+                <option value="">Select</option>
+                {LIVES_WITH.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
             </Field>
 
             <Field label="Relationship to Child">
